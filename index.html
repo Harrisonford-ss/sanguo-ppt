@@ -491,55 +491,39 @@ body{height:100%;font-family:'Noto Sans SC',sans-serif;overflow-x:hidden;backgro
     </div>
   </div>
 
-  <div class="half-r" style="z-index:2;flex-direction:column;gap:16px;align-items:flex-start;justify-content:center;padding-right:clamp(24px,4vw,56px)">
-    <!-- 大富翁棋盘示意 -->
-    <div class="a d3" style="--an:sr">
-      <div style="font-size:11px;color:var(--muted);margin-bottom:8px;letter-spacing:1px">三国版图棋盘示意</div>
-      <div style="display:grid;grid-template-columns:repeat(8,1fr);gap:3px;padding:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;width:clamp(200px,28vw,360px)">
-        <div style="grid-column:span 8;display:grid;grid-template-columns:repeat(8,1fr);gap:3px">
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(232,184,75,.3);border:1px solid rgba(232,184,75,.6);font-size:7px;font-weight:700;color:var(--gold);text-align:center">起</div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(74,144,217,.25);border:1px solid rgba(74,144,217,.5);font-size:6px;color:#a8d4ff;text-align:center">长安</div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);font-size:6px;color:rgba(255,255,255,.3);text-align:center">空</div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(74,144,217,.25);border:1px solid rgba(74,144,217,.5);font-size:6px;color:#a8d4ff;text-align:center">洛阳</div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(232,184,75,.15);border:1px solid rgba(232,184,75,.4);font-size:6px;color:var(--gold);text-align:center">📜</div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(74,144,217,.25);border:1px solid rgba(74,144,217,.5);font-size:6px;color:#a8d4ff;text-align:center">邺城</div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);font-size:6px;color:rgba(255,255,255,.3);text-align:center">空</div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(74,144,217,.25);border:1px solid rgba(74,144,217,.5);font-size:6px;color:#a8d4ff;text-align:center">青州</div>
+  <div class="half-r" style="z-index:2;flex-direction:column;gap:14px;align-items:flex-start;justify-content:center;padding-right:clamp(24px,4vw,56px)">
+
+    <!-- 大富翁地图 -->
+    <div class="a d3" style="--an:sr;width:100%">
+      <div style="font-size:10px;color:var(--muted);margin-bottom:7px;letter-spacing:1px;text-transform:uppercase">三国大富翁 · 实际游戏地图</div>
+      <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(239,83,80,.3);box-shadow:0 8px 32px rgba(0,0,0,.5);position:relative">
+        <img src="https://raw.githubusercontent.com/Harrisonford-ss/sanguo-game/main/images/monopoly_banner.webp"
+          style="width:100%;height:clamp(110px,14vw,190px);object-fit:cover;object-position:center 30%;display:block">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(13,11,8,.7) 0%,transparent 50%)"></div>
+        <div style="position:absolute;bottom:8px;left:12px;display:flex;gap:6px">
+          <span style="font-size:9px;padding:2px 7px;border-radius:4px;background:rgba(74,144,217,.5);color:#a8d4ff">魏</span>
+          <span style="font-size:9px;padding:2px 7px;border-radius:4px;background:rgba(76,175,80,.5);color:#a8f0a8">蜀</span>
+          <span style="font-size:9px;padding:2px 7px;border-radius:4px;background:rgba(239,83,80,.5);color:#ffb0a8">吴</span>
+          <span style="font-size:9px;padding:2px 7px;border-radius:4px;background:rgba(232,184,75,.4);color:var(--gold)">66格棋盘</span>
         </div>
-        <div style="grid-column:span 8;display:grid;grid-template-columns:repeat(8,1fr);gap:3px">
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(76,175,80,.2);border:1px solid rgba(76,175,80,.4);font-size:6px;color:#a8f0a8;text-align:center">雒城</div>
-          <div style="grid-column:span 6;padding:5px 3px;border-radius:3px;background:rgba(0,0,0,.15);font-size:7px;color:rgba(255,255,255,.1);text-align:center;letter-spacing:3px">三 国 大 富 翁</div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(74,144,217,.25);border:1px solid rgba(74,144,217,.5);font-size:6px;color:#a8d4ff;text-align:center">下邳</div>
-        </div>
-        <div style="grid-column:span 8;display:grid;grid-template-columns:repeat(8,1fr);gap:3px">
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(76,175,80,.25);border:1px solid rgba(76,175,80,.5);font-size:6px;color:#a8f0a8;text-align:center">成都</div>
-          <div style="grid-column:span 6"></div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(74,144,217,.25);border:1px solid rgba(74,144,217,.5);font-size:6px;color:#a8d4ff;text-align:center">合肥</div>
-        </div>
-        <div style="grid-column:span 8;display:grid;grid-template-columns:repeat(8,1fr);gap:3px">
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(239,83,80,.25);border:1px solid rgba(239,83,80,.5);font-size:6px;color:#ffb0a8;text-align:center">赤壁</div>
-          <div style="grid-column:span 6"></div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(239,83,80,.25);border:1px solid rgba(239,83,80,.5);font-size:6px;color:#ffb0a8;text-align:center">建业</div>
-        </div>
-        <div style="grid-column:span 8;display:grid;grid-template-columns:repeat(8,1fr);gap:3px">
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(232,184,75,.15);border:1px solid rgba(232,184,75,.4);font-size:6px;color:var(--gold);text-align:center">⚡</div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(239,83,80,.2);border:1px solid rgba(239,83,80,.4);font-size:6px;color:#ffb0a8;text-align:center">柴桑</div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);font-size:6px;color:rgba(255,255,255,.3);text-align:center">空</div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(109,76,65,.4);border:1px solid rgba(180,130,100,.4);font-size:6px;color:#ffcc99;text-align:center">荆州</div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);font-size:6px;color:rgba(255,255,255,.3);text-align:center">空</div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(74,144,217,.25);border:1px solid rgba(74,144,217,.5);font-size:6px;color:#a8d4ff;text-align:center">许昌</div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);font-size:6px;color:rgba(255,255,255,.3);text-align:center">空</div>
-          <div style="padding:5px 3px;border-radius:3px;background:rgba(232,184,75,.3);border:1px solid rgba(232,184,75,.6);font-size:7px;font-weight:700;color:var(--gold);text-align:center">终</div>
-        </div>
-      </div>
-      <div style="display:flex;gap:10px;margin-top:8px">
-        <span style="font-size:9px;color:#a8d4ff">■ 魏</span>
-        <span style="font-size:9px;color:#a8f0a8">■ 蜀</span>
-        <span style="font-size:9px;color:#ffb0a8">■ 吴</span>
-        <span style="font-size:9px;color:#ffcc99">■ 争议</span>
-        <span style="font-size:9px;color:var(--gold)">■ 事件</span>
       </div>
     </div>
+
+    <!-- 地下城探险 -->
+    <div class="a d4" style="--an:sr;width:100%">
+      <div style="font-size:10px;color:var(--muted);margin-bottom:7px;letter-spacing:1px;text-transform:uppercase">地下城探险 · 入口氛围图</div>
+      <div style="border-radius:12px;overflow:hidden;border:1px solid rgba(232,184,75,.3);box-shadow:0 8px 32px rgba(0,0,0,.5);position:relative">
+        <img src="https://raw.githubusercontent.com/Harrisonford-ss/sanguo-game/main/images/entries/entry_dungeon.webp"
+          style="width:100%;height:clamp(110px,14vw,190px);object-fit:cover;object-position:center 40%;display:block">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(13,11,8,.7) 0%,transparent 50%)"></div>
+        <div style="position:absolute;bottom:8px;left:12px;display:flex;gap:6px">
+          <span style="font-size:9px;padding:2px 7px;border-radius:4px;background:rgba(232,184,75,.4);color:var(--gold)">6×6迷宫</span>
+          <span style="font-size:9px;padding:2px 7px;border-radius:4px;background:rgba(124,77,255,.4);color:#c8aaff">无限楼层</span>
+          <span style="font-size:9px;padding:2px 7px;border-radius:4px;background:rgba(255,255,255,.1);color:var(--dim)">Roguelike</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
