@@ -4,1173 +4,1092 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>三国志探险 · 游戏分享</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
+/* ═══════════════════════════════════════════
+   BASE RESET & SCROLL SNAP
+═══════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow-x:hidden}
-html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;height:100%;overflow-x:hidden}
+body{height:100%;font-family:'Noto Sans SC',sans-serif;overflow-x:hidden}
 
 :root{
-  --ink:#0d0a06;
-  --ink2:#1a1208;
+  /* PPT dark theme */
+  --ink:#08060300;
+  --ink1:#100c04;
+  --ink2:#1e1508;
+  --ink3:#2a1e0a;
   --gold:#e8b84b;
-  --gold2:#f5d483;
+  --gold2:#f7e09a;
+  --gold3:#c49020;
   --red:#c0392b;
-  --red2:#e74c3c;
+  --red2:#e05c4f;
   --cream:#f5edd4;
   --muted:#8a7a5a;
-  --ff-serif:'Noto Serif SC',serif;
-  --ff-sans:'Noto Sans SC',sans-serif;
+  --dim:rgba(245,237,212,.6);
+  --ff-s:'Noto Serif SC',serif;
+  --ff-n:'Noto Sans SC',sans-serif;
+
+  /* Game UI colors (matching actual game) */
+  --g-bg:#fef9ef;
+  --g-card:#fff8e8;
+  --g-gold:#f5a623;
+  --g-red:#ef5350;
+  --g-purple:#7c4dff;
+  --g-green:#43a047;
+  --g-blue:#1976d2;
+  --g-text:#2c2c2c;
+  --g-muted:#888;
+  --g-border:#e8dcc8;
 }
 
+/* ─── slide base ─── */
 .slide{
   width:100vw;height:100vh;height:100dvh;
   overflow:hidden;scroll-snap-align:start;
   position:relative;display:flex;
-  background:var(--ink);
-  color:var(--cream);
+  background:var(--ink1);color:var(--cream);
 }
+.slide.visible .anim{animation:var(--anim,fadeUp) .65s cubic-bezier(.22,1,.36,1) both}
+.d1{animation-delay:.05s!important}.d2{animation-delay:.18s!important}
+.d3{animation-delay:.31s!important}.d4{animation-delay:.44s!important}
+.d5{animation-delay:.57s!important}.d6{animation-delay:.7s!important}
 
-/* ── decorative ink wash ── */
-.ink-wash{
-  position:absolute;inset:0;pointer-events:none;overflow:hidden;
-}
-.ink-wash::before{
-  content:'';position:absolute;
-  border-radius:50%;filter:blur(80px);opacity:.18;
-}
-
-/* ── nav dots ── */
-#nav{
-  position:fixed;right:20px;top:50%;transform:translateY(-50%);
-  z-index:100;display:flex;flex-direction:column;gap:8px;
-}
-.dot{
-  width:8px;height:8px;border-radius:50%;
-  background:rgba(232,184,75,.3);cursor:pointer;transition:.3s;
-  border:1px solid rgba(232,184,75,.5);
-}
-.dot.active{background:var(--gold);box-shadow:0 0 8px var(--gold)}
-
-/* ── progress bar ── */
-#progress{
-  position:fixed;top:0;left:0;height:2px;
-  background:linear-gradient(90deg,var(--red),var(--gold));
-  z-index:100;transition:width .3s;
-}
-
-/* ── slide counter ── */
-#counter{
-  position:fixed;bottom:20px;right:24px;
-  font-family:var(--ff-sans);font-size:12px;
-  color:rgba(232,184,75,.5);z-index:100;letter-spacing:2px;
-}
-
-/* ── common layout helpers ── */
-.center{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;width:100%}
-.pad{padding:clamp(24px,5vw,80px)}
-.gold{color:var(--gold)}
-.red{color:var(--red2)}
-.muted{color:var(--muted)}
-.serif{font-family:var(--ff-serif)}
-.sans{font-family:var(--ff-sans)}
-
-h1.display{
-  font-family:var(--ff-serif);font-weight:900;
-  font-size:clamp(36px,6vw,80px);
-  line-height:1.15;letter-spacing:.05em;
-}
-h2.section-title{
-  font-family:var(--ff-serif);font-weight:700;
-  font-size:clamp(22px,3.5vw,44px);
-  color:var(--gold);letter-spacing:.08em;margin-bottom:.6em;
-}
-p.body-text{
-  font-family:var(--ff-sans);font-size:clamp(13px,1.6vw,18px);
-  line-height:1.9;color:rgba(245,237,212,.8);
-}
-
-/* ── divider line ── */
-.rule{
-  width:60px;height:2px;
-  background:linear-gradient(90deg,var(--red),var(--gold));
-  margin:16px auto;
-}
-
-/* ── tag/badge ── */
-.tag{
-  display:inline-block;padding:3px 12px;border-radius:20px;
-  font-family:var(--ff-sans);font-size:12px;font-weight:700;
-  letter-spacing:1px;
-  background:rgba(192,57,43,.2);border:1px solid var(--red2);color:var(--red2);
-}
-.tag.gold-tag{background:rgba(232,184,75,.15);border-color:var(--gold);color:var(--gold)}
-
-/* ── card ── */
-.card{
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(232,184,75,.15);
-  border-radius:12px;padding:20px 22px;
-  backdrop-filter:blur(4px);
-}
-
-/* ── grid helpers ── */
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.grid-4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
-
-/* ── entrance animations ── */
-@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes scaleIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
-@keyframes slideRight{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
-@keyframes glow{0%,100%{text-shadow:0 0 20px rgba(232,184,75,.4)}50%{text-shadow:0 0 40px rgba(232,184,75,.8)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.93)}to{opacity:1;transform:scale(1)}}
+@keyframes slideL{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideR{from{opacity:0;transform:translateX(32px)}to{opacity:1;transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){.anim{animation:none!important}}
 
-.slide.visible .anim-up{animation:fadeUp .7s ease both}
-.slide.visible .anim-fade{animation:fadeIn .8s ease both}
-.slide.visible .anim-scale{animation:scaleIn .6s ease both}
-.slide.visible .anim-right{animation:slideRight .7s ease both}
+/* ─── nav dots ─── */
+#nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:200;display:flex;flex-direction:column;gap:7px}
+.nd{width:7px;height:7px;border-radius:50%;background:rgba(232,184,75,.25);border:1px solid rgba(232,184,75,.4);cursor:pointer;transition:.3s}
+.nd.on{background:var(--gold);box-shadow:0 0 8px rgba(232,184,75,.7)}
+#pgbar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--red),var(--gold));z-index:200;transition:width .35s ease}
+#ctr{position:fixed;bottom:18px;right:22px;font-size:11px;color:rgba(232,184,75,.4);z-index:200;letter-spacing:2px;font-family:var(--ff-n)}
 
-.d1{animation-delay:.1s!important}
-.d2{animation-delay:.25s!important}
-.d3{animation-delay:.4s!important}
-.d4{animation-delay:.55s!important}
-.d5{animation-delay:.7s!important}
-.d6{animation-delay:.85s!important}
+/* ─── layout helpers ─── */
+.col{display:flex;flex-direction:column}
+.row{display:flex;flex-direction:row}
+.ctr{align-items:center;justify-content:center}
+.full{width:100%;height:100%}
 
-@media(prefers-reduced-motion:reduce){
-  .slide.visible [class*="anim-"]{animation:none!important}
+.label{
+  display:inline-block;padding:2px 11px;border-radius:20px;
+  font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  background:rgba(192,57,43,.18);border:1px solid rgba(224,92,79,.5);color:var(--red2);
 }
+.label.g{background:rgba(232,184,75,.12);border-color:rgba(232,184,75,.4);color:var(--gold)}
 
-/* ─────────────────────────────────────────────────────────
-   SLIDE 1  封面
-───────────────────────────────────────────────────────── */
-#s1{
-  background:radial-gradient(ellipse 80% 60% at 50% 80%,#2a1a00 0%,#0d0a06 60%);
-}
-#s1 .mountains{
-  position:absolute;bottom:0;left:0;width:100%;height:55%;
-}
-#s1 .banner-l,#s1 .banner-r{
-  position:absolute;top:0;height:45%;width:36px;
-  background:linear-gradient(180deg,var(--red) 0%,#7a1a0e 100%);
-  display:flex;align-items:center;justify-content:center;
-}
-#s1 .banner-l{left:8%}
-#s1 .banner-r{right:8%}
-#s1 .banner-text{
-  writing-mode:vertical-rl;font-family:var(--ff-serif);
-  font-size:13px;color:var(--gold);letter-spacing:4px;
-}
-#s1 .main{
-  position:relative;z-index:2;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  width:100%;height:100%;text-align:center;
-  padding-bottom:10vh;
-}
-#s1 .subtitle{
-  font-family:var(--ff-sans);font-size:clamp(14px,2vw,22px);
-  color:rgba(245,237,212,.65);letter-spacing:.2em;margin-bottom:28px;
-}
-#s1 .author-row{
-  display:flex;align-items:center;gap:12px;margin-top:32px;
-  font-family:var(--ff-sans);font-size:13px;color:var(--muted);letter-spacing:1px;
-}
-#s1 .star-row{font-size:18px;color:var(--gold);letter-spacing:6px}
+.hdg{font-family:var(--ff-s);font-weight:900;color:var(--gold);
+  font-size:clamp(22px,3.5vw,46px);line-height:1.2;letter-spacing:.04em}
+.sub{font-size:clamp(12px,1.4vw,16px);color:var(--dim);line-height:1.8;font-weight:300}
 
-/* ─────────────────────────────────────────────────────────
-   SLIDE 2  为什么做
-───────────────────────────────────────────────────────── */
-#s2{background:linear-gradient(135deg,#0f0b05 0%,#1c1106 100%)}
-#s2 .col-old{
-  flex:1;padding:clamp(30px,5vw,60px) clamp(20px,4vw,50px);
-  border-right:1px solid rgba(232,184,75,.12);
-  display:flex;flex-direction:column;justify-content:center;
+.rule{width:44px;height:2px;background:linear-gradient(90deg,var(--red),var(--gold));margin:12px 0}
+
+/* ─── phone frame ─── */
+.phone{
+  background:var(--g-bg);border-radius:clamp(16px,2vw,28px);
+  border:2px solid rgba(232,184,75,.2);
+  box-shadow:0 24px 80px rgba(0,0,0,.5),0 0 0 1px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.1);
+  overflow:hidden;position:relative;color:var(--g-text);
+  font-family:var(--ff-n);
 }
-#s2 .col-new{
-  flex:1;padding:clamp(30px,5vw,60px) clamp(20px,4vw,50px);
-  display:flex;flex-direction:column;justify-content:center;
+.phone-bar{
+  background:linear-gradient(135deg,#1a0a00,#3d1a00);
+  padding:10px 14px 8px;display:flex;align-items:center;justify-content:space-between;
 }
-#s2 .vs-badge{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:52px;height:52px;border-radius:50%;
-  background:var(--red);border:3px solid var(--gold);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--ff-serif);font-weight:900;font-size:16px;color:var(--gold);
-  z-index:5;box-shadow:0 0 20px rgba(192,57,43,.5);
-}
-.pain-item{
-  display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;
-}
-.pain-icon{font-size:22px;margin-top:2px;flex-shrink:0}
-.pain-text{font-family:var(--ff-sans);font-size:clamp(12px,1.5vw,16px);color:rgba(245,237,212,.7);line-height:1.7}
-.gain-item{
-  display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;
-}
-.gain-icon{font-size:22px;margin-top:2px;flex-shrink:0;color:var(--gold)}
-.gain-text{font-family:var(--ff-sans);font-size:clamp(12px,1.5vw,16px);color:rgba(245,237,212,.85);line-height:1.7}
-#s2 .big-idea{
-  position:absolute;bottom:clamp(20px,4vh,40px);left:0;width:100%;
-  text-align:center;
-  font-family:var(--ff-serif);font-size:clamp(16px,2.5vw,30px);
-  color:var(--gold);letter-spacing:.15em;
-  text-shadow:0 0 30px rgba(232,184,75,.3);
+.phone-title{color:var(--g-gold);font-family:var(--ff-s);font-weight:700;font-size:clamp(12px,1.4vw,16px)}
+
+/* ─── game card ─── */
+.gcard{
+  border-radius:10px;background:var(--g-card);
+  border:1px solid var(--g-border);padding:10px;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 
-/* ─────────────────────────────────────────────────────────
-   SLIDE 3  为什么选三国
-───────────────────────────────────────────────────────── */
-#s3{background:#0d0a06}
-#s3 .reason-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(10px,2vw,24px);
-  max-width:780px;width:100%;margin-top:24px;
-}
-#s3 .reason-card{
-  background:rgba(255,255,255,.04);border-radius:14px;
-  border:1px solid rgba(232,184,75,.12);
-  padding:clamp(16px,2.5vw,28px);
-  position:relative;overflow:hidden;
-}
-#s3 .reason-card::before{
-  content:'';position:absolute;top:-20px;right:-20px;
-  width:80px;height:80px;border-radius:50%;
-  background:rgba(232,184,75,.06);
-}
-#s3 .reason-num{
-  font-family:var(--ff-serif);font-size:36px;font-weight:900;
-  color:rgba(232,184,75,.15);line-height:1;margin-bottom:6px;
-}
-#s3 .reason-title{
-  font-family:var(--ff-serif);font-weight:700;
-  font-size:clamp(14px,1.8vw,20px);color:var(--gold);margin-bottom:6px;
-}
-#s3 .reason-body{
-  font-family:var(--ff-sans);font-size:clamp(11px,1.3vw,14px);
-  color:rgba(245,237,212,.65);line-height:1.7;
-}
+/* ─── gradient overlays for slides ─── */
+.grad-r{background:linear-gradient(90deg,rgba(8,6,3,0) 0%,rgba(8,6,3,.95) 50%,#080603 100%);position:absolute;inset:0;pointer-events:none}
+.grad-l{background:linear-gradient(270deg,rgba(8,6,3,0) 0%,rgba(8,6,3,.95) 50%,#080603 100%);position:absolute;inset:0;pointer-events:none}
 
-/* ─────────────────────────────────────────────────────────
-   SLIDE 4  答题闯关
-───────────────────────────────────────────────────────── */
-#s4{background:linear-gradient(160deg,#0d0a06 60%,#1a0a00 100%)}
-#s4 .layout{display:flex;width:100%;height:100%;align-items:center;gap:clamp(20px,4vw,60px);padding:clamp(30px,5vw,60px)}
-#s4 .quiz-mock{
-  flex:0 0 auto;width:clamp(160px,25vw,280px);
-  background:rgba(255,255,255,.05);border:1px solid rgba(232,184,75,.2);border-radius:20px;
-  padding:20px;font-family:var(--ff-sans);
-}
-#s4 .mock-q{font-size:clamp(11px,1.2vw,14px);color:rgba(245,237,212,.8);margin-bottom:14px;line-height:1.6}
-#s4 .mock-opt{
-  padding:8px 12px;border-radius:8px;margin-bottom:8px;
-  font-size:clamp(10px,1.1vw,13px);cursor:pointer;transition:.2s;
-  border:1px solid rgba(232,184,75,.15);color:rgba(245,237,212,.7);
-}
-#s4 .mock-opt.correct{background:rgba(46,204,113,.15);border-color:#2ecc71;color:#2ecc71}
-#s4 .mock-opt.wrong{background:rgba(231,76,60,.15);border-color:var(--red2);color:var(--red2)}
-#s4 .right-col{flex:1;display:flex;flex-direction:column;justify-content:center}
-#s4 .step-list{margin-top:20px;display:flex;flex-direction:column;gap:14px}
-#s4 .step{display:flex;align-items:center;gap:14px}
-#s4 .step-num{
-  width:32px;height:32px;border-radius:50%;flex-shrink:0;
-  background:linear-gradient(135deg,var(--red),#8b1a10);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--ff-serif);font-weight:900;font-size:14px;color:var(--gold);
-}
-#s4 .step-text{font-family:var(--ff-sans);font-size:clamp(12px,1.5vw,15px);color:rgba(245,237,212,.8);line-height:1.5}
+/* ─── star rating ─── */
+.stars{color:var(--g-gold);font-size:14px;letter-spacing:2px}
 
-/* ─────────────────────────────────────────────────────────
-   SLIDE 5  游戏架构（轮辐图）
-───────────────────────────────────────────────────────── */
-#s5{background:#0d0a06}
-#s5 .hub-wrap{
-  position:relative;width:clamp(280px,50vw,520px);height:clamp(280px,50vw,520px);
-  flex-shrink:0;
-}
-#s5 .hub-center{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:clamp(80px,12vw,130px);height:clamp(80px,12vw,130px);border-radius:50%;
-  background:radial-gradient(circle,#3d1f00,#1a0a00);
-  border:2px solid var(--gold);
-  display:flex;align-items:center;justify-content:center;text-align:center;
-  box-shadow:0 0 30px rgba(232,184,75,.25);
-  font-family:var(--ff-serif);font-size:clamp(10px,1.3vw,15px);color:var(--gold);font-weight:700;
-  line-height:1.4;
-}
-.spoke-node{
-  position:absolute;
-  width:clamp(64px,9vw,100px);height:clamp(64px,9vw,100px);border-radius:50%;
-  background:rgba(255,255,255,.05);border:1px solid rgba(232,184,75,.2);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-  font-family:var(--ff-sans);font-size:clamp(9px,1vw,13px);color:var(--cream);
-  transform:translate(-50%,-50%);
-}
-.spoke-node .n-icon{font-size:clamp(16px,2vw,24px);margin-bottom:3px}
-.spoke-node .n-label{color:var(--gold);font-weight:700;font-size:clamp(9px,1vw,12px)}
-#s5 .spoke-line{
-  position:absolute;top:50%;left:50%;
-  transform-origin:0 0;height:1px;background:rgba(232,184,75,.15);
-}
-#s5 .right-desc{
-  flex:1;padding-left:clamp(20px,3vw,40px);display:flex;flex-direction:column;justify-content:center;
-}
-#s5 .module-list{margin-top:16px;display:flex;flex-direction:column;gap:10px}
-#s5 .mod-item{
-  display:flex;align-items:center;gap:10px;
-  font-family:var(--ff-sans);font-size:clamp(11px,1.3vw,15px);color:rgba(245,237,212,.8);
-}
-#s5 .mod-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0}
+/* ─── rarity badge ─── */
+.rb{font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px}
+.rb.legend{background:linear-gradient(135deg,#ffd700,#ff9800);color:#fff}
+.rb.rare{background:linear-gradient(135deg,#7c4dff,#448aff);color:#fff}
+.rb.common{background:linear-gradient(135deg,#66bb6a,#43a047);color:#fff}
 
-/* ─────────────────────────────────────────────────────────
-   SLIDE 6  大富翁
-───────────────────────────────────────────────────────── */
-#s6{background:linear-gradient(145deg,#0d0a06,#0f1a0a)}
-#s6 .layout{display:flex;width:100%;height:100%;align-items:center;gap:clamp(20px,3vw,50px);padding:clamp(24px,4vw,56px)}
-#s6 .map-area{
-  flex:0 0 auto;width:clamp(180px,30vw,320px);
-  background:rgba(255,255,255,.04);border-radius:16px;border:1px solid rgba(232,184,75,.15);
-  padding:16px;position:relative;overflow:hidden;
-}
-#s6 .map-grid{
-  display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:10px;
-}
-#s6 .map-cell{
-  aspect-ratio:1;border-radius:4px;
-  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.05);
-  display:flex;align-items:center;justify-content:center;font-size:clamp(8px,1vw,12px);
-}
-#s6 .map-cell.wu{background:rgba(231,76,60,.2);border-color:rgba(231,76,60,.3)}
-#s6 .map-cell.shu{background:rgba(46,204,113,.15);border-color:rgba(46,204,113,.25)}
-#s6 .map-cell.wei{background:rgba(52,152,219,.15);border-color:rgba(52,152,219,.25)}
-#s6 .feat-col{flex:1;display:flex;flex-direction:column;justify-content:center;gap:12px}
-#s6 .feat-card{
-  background:rgba(255,255,255,.04);border:1px solid rgba(232,184,75,.12);border-radius:12px;
-  padding:14px 16px;display:flex;align-items:flex-start;gap:12px;
-}
-#s6 .feat-icon{font-size:24px;flex-shrink:0}
-#s6 .feat-title{font-family:var(--ff-serif);font-size:clamp(13px,1.5vw,16px);color:var(--gold);margin-bottom:4px}
-#s6 .feat-desc{font-family:var(--ff-sans);font-size:clamp(10px,1.2vw,13px);color:rgba(245,237,212,.65);line-height:1.6}
+/* ─── progress bar ─── */
+.prog-wrap{background:#e8dcc8;border-radius:99px;height:8px;overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--g-gold),#f5a623)}
 
-/* ─────────────────────────────────────────────────────────
-   SLIDE 7  乱世探险
-───────────────────────────────────────────────────────── */
-#s7{background:#0d0a06}
-#s7 .layout{display:flex;width:100%;height:100%;align-items:center;gap:clamp(20px,3vw,50px);padding:clamp(24px,4vw,56px)}
-#s7 .dungeon-art{
-  flex:0 0 auto;width:clamp(160px,25vw,260px);
-  display:flex;flex-direction:column;gap:8px;
-}
-#s7 .floor-bar{
-  display:flex;align-items:center;gap:8px;
-  padding:8px 12px;border-radius:8px;
-  background:rgba(255,255,255,.04);border:1px solid rgba(232,184,75,.1);
-  font-family:var(--ff-sans);font-size:clamp(10px,1.2vw,13px);color:rgba(245,237,212,.75);
-}
-#s7 .floor-num{
-  font-family:var(--ff-serif);font-weight:900;font-size:clamp(18px,2.5vw,28px);
-  color:var(--gold);min-width:40px;text-align:right;
-}
-#s7 .floor-boss{color:var(--red2)}
-#s7 .right-col{flex:1;display:flex;flex-direction:column;justify-content:center}
-#s7 .skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
-#s7 .skill-card{
-  background:rgba(255,255,255,.04);border:1px solid rgba(232,184,75,.1);border-radius:10px;
-  padding:12px 14px;
-}
-#s7 .skill-name{font-family:var(--ff-serif);font-size:clamp(12px,1.4vw,15px);color:var(--gold);margin-bottom:4px}
-#s7 .skill-desc{font-family:var(--ff-sans);font-size:clamp(10px,1.1vw,12px);color:rgba(245,237,212,.6);line-height:1.6}
-
-/* ─────────────────────────────────────────────────────────
-   SLIDE 8  其他模块
-───────────────────────────────────────────────────────── */
-#s8{background:#0d0a06}
-#s8 .mod-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:clamp(12px,2vw,24px);max-width:720px;width:100%;margin-top:20px;
-}
-#s8 .mod-card{
-  background:rgba(255,255,255,.04);border-radius:14px;
-  border:1px solid rgba(232,184,75,.12);padding:clamp(16px,2.5vw,24px);
-  display:flex;gap:14px;align-items:flex-start;
-}
-#s8 .mod-emoji{font-size:clamp(28px,4vw,42px);flex-shrink:0;line-height:1}
-#s8 .mod-content{}
-#s8 .mod-name{
-  font-family:var(--ff-serif);font-weight:700;
-  font-size:clamp(14px,1.8vw,20px);color:var(--gold);margin-bottom:6px;
-}
-#s8 .mod-detail{
-  font-family:var(--ff-sans);font-size:clamp(11px,1.3vw,14px);
-  color:rgba(245,237,212,.65);line-height:1.7;
-}
-
-/* ─────────────────────────────────────────────────────────
-   SLIDE 9  开发历程
-───────────────────────────────────────────────────────── */
-#s9{background:linear-gradient(160deg,#0d0a06,#0a0d1a)}
-#s9 .timeline{
-  display:flex;flex-direction:column;gap:0;
-  max-width:680px;width:100%;margin-top:20px;
-  position:relative;
-}
-#s9 .timeline::before{
-  content:'';position:absolute;left:18px;top:8px;bottom:8px;width:2px;
-  background:linear-gradient(180deg,var(--red),var(--gold));
-}
-#s9 .tl-item{
-  display:flex;gap:20px;align-items:flex-start;
-  padding:0 0 20px 0;position:relative;
-}
-#s9 .tl-dot{
-  width:38px;height:38px;border-radius:50%;flex-shrink:0;
-  background:var(--ink2);border:2px solid var(--gold);
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;z-index:1;
-}
-#s9 .tl-body{}
-#s9 .tl-phase{
-  font-family:var(--ff-serif);font-size:clamp(13px,1.6vw,17px);
-  color:var(--gold);font-weight:700;margin-bottom:3px;
-}
-#s9 .tl-desc{
-  font-family:var(--ff-sans);font-size:clamp(11px,1.3vw,14px);
-  color:rgba(245,237,212,.65);line-height:1.6;
-}
-
-/* ─────────────────────────────────────────────────────────
-   SLIDE 10  挑战与解法
-───────────────────────────────────────────────────────── */
-#s10{background:#0d0a06}
-#s10 .challenge-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:clamp(12px,2vw,24px);max-width:860px;width:100%;margin-top:24px;
-}
-#s10 .ch-card{
-  background:rgba(255,255,255,.04);border-radius:14px;
-  border:1px solid rgba(232,184,75,.1);padding:clamp(16px,2.5vw,24px);
-}
-#s10 .ch-icon{font-size:clamp(28px,4vw,40px);margin-bottom:10px}
-#s10 .ch-title{
-  font-family:var(--ff-serif);font-size:clamp(13px,1.6vw,17px);
-  color:var(--red2);font-weight:700;margin-bottom:8px;
-}
-#s10 .ch-problem{
-  font-family:var(--ff-sans);font-size:clamp(11px,1.2vw,13px);
-  color:rgba(245,237,212,.55);line-height:1.6;margin-bottom:10px;
-  padding-bottom:10px;border-bottom:1px solid rgba(232,184,75,.1);
-}
-#s10 .ch-solution{
-  font-family:var(--ff-sans);font-size:clamp(11px,1.2vw,13px);
-  color:rgba(46,204,113,.85);line-height:1.6;
-}
-#s10 .ch-solution::before{content:'✓ ';font-weight:700}
-
-/* ─────────────────────────────────────────────────────────
-   SLIDE 11  迭代取舍
-───────────────────────────────────────────────────────── */
-#s11{background:linear-gradient(135deg,#0d0a06,#100a12)}
-#s11 .compare-table{
-  max-width:720px;width:100%;margin-top:22px;
-  border-radius:14px;overflow:hidden;
-  border:1px solid rgba(232,184,75,.15);
-}
-#s11 .ct-head{
-  display:grid;grid-template-columns:1fr 1fr 1fr;
-  background:rgba(232,184,75,.08);
-  padding:12px 20px;
-  font-family:var(--ff-serif);font-weight:700;font-size:clamp(12px,1.4vw,15px);
-  color:var(--gold);letter-spacing:.05em;
-}
-#s11 .ct-row{
-  display:grid;grid-template-columns:1fr 1fr 1fr;
-  padding:12px 20px;
-  border-top:1px solid rgba(232,184,75,.08);
-  font-family:var(--ff-sans);font-size:clamp(11px,1.3vw,14px);align-items:center;
-}
-#s11 .ct-row:nth-child(even){background:rgba(255,255,255,.02)}
-#s11 .ct-feature{color:var(--gold);font-weight:700}
-#s11 .ct-before{color:rgba(245,237,212,.45)}
-#s11 .ct-after{color:rgba(46,204,113,.85)}
-
-/* ─────────────────────────────────────────────────────────
-   SLIDE 12  收获反思
-───────────────────────────────────────────────────────── */
-#s12{background:#0d0a06}
-#s12 .harvest-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:clamp(12px,2vw,20px);max-width:680px;width:100%;margin-top:20px;
-}
-#s12 .hv-card{
-  background:rgba(255,255,255,.04);border-radius:12px;
-  border:1px solid rgba(232,184,75,.12);padding:18px 20px;
-}
-#s12 .hv-icon{font-size:26px;margin-bottom:8px}
-#s12 .hv-title{
-  font-family:var(--ff-serif);font-size:clamp(13px,1.5vw,17px);
-  color:var(--gold);font-weight:700;margin-bottom:6px;
-}
-#s12 .hv-text{
-  font-family:var(--ff-sans);font-size:clamp(11px,1.2vw,13px);
-  color:rgba(245,237,212,.65);line-height:1.7;
-}
-#s12 .closing-quote{
-  max-width:600px;margin-top:clamp(20px,3vh,32px);text-align:center;
-  font-family:var(--ff-serif);font-size:clamp(14px,2vw,22px);
-  color:var(--gold);font-style:italic;letter-spacing:.05em;
-  text-shadow:0 0 20px rgba(232,184,75,.2);
-  line-height:1.7;
-}
-
-/* ─────────────────────────────────────────────────────────
-   SLIDE 13  结尾
-───────────────────────────────────────────────────────── */
-#s13{background:radial-gradient(ellipse 80% 70% at 50% 100%,#2a1a00 0%,#0d0a06 55%)}
-#s13 .game-url{
-  font-family:var(--ff-sans);font-size:clamp(13px,1.8vw,20px);
-  color:rgba(232,184,75,.7);letter-spacing:.1em;
-  border:1px solid rgba(232,184,75,.2);border-radius:8px;padding:10px 24px;
-  margin-top:20px;
-}
-#s13 .invite{
-  font-family:var(--ff-sans);font-size:clamp(13px,1.6vw,18px);
-  color:rgba(245,237,212,.7);margin-top:16px;letter-spacing:.1em;
-}
-#s13 .qr-placeholder{
-  width:clamp(80px,12vw,120px);height:clamp(80px,12vw,120px);
-  border:2px solid rgba(232,184,75,.3);border-radius:12px;margin-top:20px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:clamp(32px,5vw,60px);
-}
-#s13 .mountains2{position:absolute;bottom:0;left:0;width:100%;height:40%;opacity:.6}
 </style>
 </head>
 <body>
 
-<!-- Navigation Dots -->
 <div id="nav"></div>
-<div id="progress"></div>
-<div id="counter">1 / 13</div>
+<div id="pgbar"></div>
+<div id="ctr">01 / 13</div>
 
-<!-- ══════════════════════════════════════════════
-     SLIDE 1  封面
-══════════════════════════════════════════════ -->
-<section class="slide" id="s1">
-  <!-- War banners -->
-  <div class="banner-l" style="clip-path:polygon(0 0,100% 0,100% 90%,50% 100%,0 90%)">
-    <span class="banner-text">三国志探险</span>
-  </div>
-  <div class="banner-r" style="clip-path:polygon(0 0,100% 0,100% 90%,50% 100%,0 90%)">
-    <span class="banner-text">历史游戏化</span>
+<!-- ═══════════════════════════════════
+  01  封面
+═══════════════════════════════════ -->
+<section class="slide" id="s1" style="
+  background:radial-gradient(ellipse 110% 80% at 30% 110%,#3d1e00 0%,#1a0a00 40%,#080603 70%);
+  align-items:center;
+">
+  <!-- ink texture dots -->
+  <div style="position:absolute;inset:0;overflow:hidden;pointer-events:none">
+    <div style="position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(232,184,75,.06),transparent 70%);top:-100px;right:-50px"></div>
+    <div style="position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(192,57,43,.08),transparent 70%);bottom:-80px;left:10%"></div>
   </div>
 
-  <!-- Mountain SVG -->
-  <svg class="mountains" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMax meet" fill="none">
-    <defs>
-      <linearGradient id="mtn-grad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#2a1a00" stop-opacity=".9"/>
-        <stop offset="100%" stop-color="#0d0a06"/>
-      </linearGradient>
-    </defs>
-    <!-- far mountains -->
-    <path d="M0 400 L150 180 L300 280 L500 120 L700 250 L900 100 L1100 220 L1200 160 L1200 400Z" fill="url(#mtn-grad)" opacity=".6"/>
-    <!-- mid mountains -->
-    <path d="M0 400 L100 280 L250 320 L400 200 L600 300 L750 160 L950 270 L1100 190 L1200 250 L1200 400Z" fill="url(#mtn-grad)" opacity=".8"/>
-    <!-- near mountains -->
-    <path d="M0 400 L80 350 L200 290 L350 340 L480 270 L600 320 L720 260 L860 310 L1000 270 L1100 310 L1200 290 L1200 400Z" fill="#0d0a06"/>
-    <!-- moon -->
-    <circle cx="900" cy="80" r="35" fill="#f5d483" opacity=".15"/>
-    <circle cx="900" cy="80" r="28" fill="#f5d483" opacity=".1"/>
+  <!-- left: mountain + title -->
+  <div style="flex:1.1;height:100%;display:flex;flex-direction:column;justify-content:center;padding:clamp(32px,5vw,80px);position:relative;z-index:2">
+    <div class="label g anim d1" style="--anim:fadeIn;margin-bottom:18px">H5 · 三国历史游戏</div>
+
+    <!-- Decorative title strokes -->
+    <div style="position:relative;margin-bottom:10px">
+      <div style="font-family:'Noto Serif SC',serif;font-weight:900;
+        font-size:clamp(52px,9vw,110px);line-height:1;
+        background:linear-gradient(160deg,#f7e09a 0%,#e8b84b 40%,#c49020 80%);
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+        letter-spacing:.05em;
+        filter:drop-shadow(0 0 40px rgba(232,184,75,.25));
+        " class="anim d1" style2="--anim:fadeUp">三国志<br>探险</div>
+    </div>
+
+    <div class="rule anim d2"></div>
+
+    <div style="font-family:'Noto Serif SC',serif;font-size:clamp(16px,2.2vw,26px);
+      color:rgba(245,237,212,.75);letter-spacing:.25em;margin-bottom:24px;font-weight:400"
+      class="anim d2">让历史知识好玩起来</div>
+
+    <div style="font-size:clamp(12px,1.4vw,15px);color:var(--muted);line-height:1.9;max-width:400px;font-weight:300" class="anim d3">
+      一款以三国知识为内核、多元玩法为载体的 H5 手游<br>
+      答题 · 大富翁 · 探险 · 抽卡 · 擂台 · 排行榜
+    </div>
+
+    <div style="margin-top:32px;display:flex;align-items:center;gap:14px;font-size:13px;color:var(--muted)" class="anim d4">
+      <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#e8b84b,#c49020);display:flex;align-items:center;justify-content:center;font-size:18px">🏯</div>
+      <div>
+        <div style="color:var(--cream);font-weight:500">制作人：___</div>
+        <div style="font-size:11px;margin-top:2px">游戏开发历程分享 · 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- right: game screenshot mockup -->
+  <div style="flex:1;height:100%;display:flex;align-items:center;justify-content:center;padding:32px 40px 32px 0;position:relative;z-index:2" class="anim d2" style2="--anim:slideR">
+    <!-- Phone mockup showing home screen -->
+    <div class="phone" style="width:clamp(180px,22vw,260px);height:clamp(340px,42vw,490px);display:flex;flex-direction:column">
+      <!-- status bar -->
+      <div style="background:linear-gradient(135deg,#2a1200,#5a2800);padding:6px 12px;display:flex;justify-content:space-between;align-items:center">
+        <span style="color:#e8b84b;font-family:'Noto Serif SC',serif;font-weight:700;font-size:11px">三国志探险</span>
+        <span style="color:rgba(232,184,75,.6);font-size:9px">☀ 晴</span>
+      </div>
+      <!-- hero area -->
+      <div style="background:linear-gradient(160deg,#3d1a00,#1a0800);padding:14px 12px 10px;position:relative;overflow:hidden">
+        <!-- bg pattern -->
+        <div style="position:absolute;right:-10px;top:-10px;width:80px;height:80px;border-radius:50%;background:rgba(232,184,75,.06)"></div>
+        <!-- avatar area -->
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+          <div style="width:44px;height:44px;border-radius:50%;border:2px solid #e8b84b;background:linear-gradient(135deg,#f5a623,#c49020);display:flex;align-items:center;justify-content:center;font-size:20px">🦁</div>
+          <div>
+            <div style="color:#f7e09a;font-weight:700;font-size:12px">玩家昵称</div>
+            <div style="color:rgba(232,184,75,.6);font-size:9px;margin-top:2px">战力 ⚔️ 3,280</div>
+          </div>
+          <div style="margin-left:auto;background:rgba(192,57,43,.3);border:1px solid #c0392b;border-radius:6px;padding:3px 8px;font-size:9px;color:#e05c4f">签到</div>
+        </div>
+        <!-- stats pills -->
+        <div style="display:flex;gap:6px">
+          <div style="background:rgba(0,0,0,.2);border-radius:99px;padding:3px 8px;font-size:9px;color:rgba(245,237,212,.7)">💰 350</div>
+          <div style="background:rgba(0,0,0,.2);border-radius:99px;padding:3px 8px;font-size:9px;color:rgba(245,237,212,.7)">📚 820</div>
+          <div style="background:rgba(0,0,0,.2);border-radius:99px;padding:3px 8px;font-size:9px;color:rgba(245,237,212,.7)">🃏 18</div>
+        </div>
+      </div>
+      <!-- game entry cards -->
+      <div style="flex:1;background:#fef9ef;padding:10px;display:grid;grid-template-columns:1fr 1fr;gap:7px;overflow:hidden">
+        <div style="background:linear-gradient(135deg,#fff3e0,#ffe0b2);border-radius:10px;padding:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #f5a623;box-shadow:0 2px 6px rgba(245,166,35,.15)">
+          <div style="font-size:22px;margin-bottom:4px">⚔️</div>
+          <div style="font-size:10px;font-weight:700;color:#5d3a1a">答题闯关</div>
+          <div style="font-size:8px;color:#999;margin-top:2px">36关</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-radius:10px;padding:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #43a047">
+          <div style="font-size:22px;margin-bottom:4px">🎲</div>
+          <div style="font-size:10px;font-weight:700;color:#1b5e20">大富翁</div>
+          <div style="font-size:8px;color:#999;margin-top:2px">多人对战</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#e3f2fd,#bbdefb);border-radius:10px;padding:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #1976d2">
+          <div style="font-size:22px;margin-bottom:4px">🗺️</div>
+          <div style="font-size:10px;font-weight:700;color:#0d47a1">乱世探险</div>
+          <div style="font-size:8px;color:#999;margin-top:2px">地下城</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#f3e5f5,#e1bee7);border-radius:10px;padding:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid #7c4dff">
+          <div style="font-size:22px;margin-bottom:4px">🃏</div>
+          <div style="font-size:10px;font-weight:700;color:#4a148c">武将抽卡</div>
+          <div style="font-size:8px;color:#999;margin-top:2px">36武将</div>
+        </div>
+      </div>
+      <!-- tab bar -->
+      <div style="background:white;border-top:1px solid #e8dcc8;padding:6px 4px;display:flex;justify-content:space-around">
+        <div style="text-align:center;font-size:7px;color:#f5a623">🏠<br>首页</div>
+        <div style="text-align:center;font-size:7px;color:#999">⚔️<br>关卡</div>
+        <div style="text-align:center;font-size:7px;color:#999">🃏<br>武将</div>
+        <div style="text-align:center;font-size:7px;color:#999">🏆<br>排行</div>
+      </div>
+    </div>
+    <!-- floating badge -->
+    <div style="position:absolute;top:20%;right:12%;background:linear-gradient(135deg,var(--red),#8b1a10);border-radius:10px;padding:8px 12px;font-size:11px;color:white;font-weight:700;box-shadow:0 4px 16px rgba(192,57,43,.4);transform:rotate(6deg)">
+      H5 无需下载<br><span style="font-size:9px;opacity:.8">即开即玩</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  02  为什么做
+═══════════════════════════════════ -->
+<section class="slide" id="s2" style="background:linear-gradient(145deg,#100c04,#1e1508);align-items:stretch">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:clamp(28px,4vw,64px);border-right:1px solid rgba(232,184,75,.08)">
+    <div class="label anim d1" style="--anim:fadeIn;margin-bottom:16px">痛点</div>
+    <div style="font-family:'Noto Serif SC',serif;font-size:clamp(16px,2vw,22px);color:rgba(245,237,212,.5);margin-bottom:20px;font-weight:400" class="anim d1">传统学三国…</div>
+
+    <!-- pain points with actual visuals -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="anim d2" style="display:flex;align-items:flex-start;gap:12px;padding:14px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)">
+        <div style="font-size:28px;flex-shrink:0">📖</div>
+        <div>
+          <div style="font-size:clamp(13px,1.5vw,15px);color:var(--cream);font-weight:600;margin-bottom:4px">知识密度高，人物繁杂</div>
+          <div style="font-size:clamp(11px,1.2vw,13px);color:var(--dim);line-height:1.7">三国正史 200+ 人物，魏蜀吴势力交错，普通读者难以梳理清楚</div>
+        </div>
+      </div>
+      <div class="anim d3" style="display:flex;align-items:flex-start;gap:12px;padding:14px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)">
+        <div style="font-size:28px;flex-shrink:0">😴</div>
+        <div>
+          <div style="font-size:clamp(13px,1.5vw,15px);color:var(--cream);font-weight:600;margin-bottom:4px">被动接收，学完就忘</div>
+          <div style="font-size:clamp(11px,1.2vw,13px);color:var(--dim);line-height:1.7">读书、看剧都是单向输入，缺乏主动"用"知识的场景</div>
+        </div>
+      </div>
+      <div class="anim d4" style="display:flex;align-items:flex-start;gap:12px;padding:14px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)">
+        <div style="font-size:28px;flex-shrink:0">🎯</div>
+        <div>
+          <div style="font-size:clamp(13px,1.5vw,15px);color:var(--cream);font-weight:600;margin-bottom:4px">没有正反馈，缺少动力</div>
+          <div style="font-size:clamp(11px,1.2vw,13px);color:var(--dim);line-height:1.7">传统学习无法给学习行为即时奖励，很难坚持</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- right: solution -->
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:clamp(28px,4vw,64px);position:relative">
+    <div class="label g anim d1" style="--anim:fadeIn;margin-bottom:16px">解法</div>
+    <div style="font-family:'Noto Serif SC',serif;font-size:clamp(16px,2vw,22px);color:var(--gold);margin-bottom:20px;font-weight:400" class="anim d2">如果把知识嵌入游戏…</div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="anim d2" style="display:flex;align-items:flex-start;gap:12px;padding:14px;border-radius:12px;background:rgba(232,184,75,.05);border:1px solid rgba(232,184,75,.15)">
+        <div style="font-size:28px;flex-shrink:0">🎮</div>
+        <div>
+          <div style="font-size:clamp(13px,1.5vw,15px);color:var(--cream);font-weight:600;margin-bottom:4px">在玩中主动"用"知识</div>
+          <div style="font-size:clamp(11px,1.2vw,13px);color:var(--dim);line-height:1.7">答题才能通关，了解典故才能在大富翁中占优——知识即能力</div>
+        </div>
+      </div>
+      <div class="anim d3" style="display:flex;align-items:flex-start;gap:12px;padding:14px;border-radius:12px;background:rgba(232,184,75,.05);border:1px solid rgba(232,184,75,.15)">
+        <div style="font-size:28px;flex-shrink:0">🏆</div>
+        <div>
+          <div style="font-size:clamp(13px,1.5vw,15px);color:var(--cream);font-weight:600;margin-bottom:4px">即时正反馈驱动</div>
+          <div style="font-size:clamp(11px,1.2vw,13px);color:var(--dim);line-height:1.7">答对有金币、武将、成就——每次答题都有收获感</div>
+        </div>
+      </div>
+      <div class="anim d4" style="display:flex;align-items:flex-start;gap:12px;padding:14px;border-radius:12px;background:rgba(232,184,75,.05);border:1px solid rgba(232,184,75,.15)">
+        <div style="font-size:28px;flex-shrink:0">🔄</div>
+        <div>
+          <div style="font-size:clamp(13px,1.5vw,15px);color:var(--cream);font-weight:600;margin-bottom:4px">资源循环带来反复学习</div>
+          <div style="font-size:clamp(11px,1.2vw,13px);color:var(--dim);line-height:1.7">刷关→抽卡→擂台→排行，每个环节都在强化三国知识</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- big quote -->
+    <div class="anim d5" style="margin-top:22px;padding:14px 18px;border-radius:12px;background:linear-gradient(135deg,rgba(192,57,43,.12),rgba(232,184,75,.08));border:1px solid rgba(232,184,75,.2);text-align:center">
+      <div style="font-family:'Noto Serif SC',serif;font-size:clamp(15px,2vw,22px);color:var(--gold);letter-spacing:.1em;font-weight:700">学习是内核，游戏是载体</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  03  为什么选三国
+═══════════════════════════════════ -->
+<section class="slide" id="s3" style="background:#100c04;align-items:center;justify-content:center;flex-direction:column;padding:clamp(28px,4vw,56px)">
+  <div style="text-align:center;margin-bottom:clamp(16px,2.5vh,28px)">
+    <div class="label anim d1" style="--anim:fadeIn">选题逻辑</div>
+    <div class="hdg anim d2" style="margin-top:10px">为什么偏偏选三国？</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(12px,1.8vw,22px);max-width:900px;width:100%">
+
+    <div class="anim d2" style="display:flex;gap:14px;padding:clamp(14px,2vw,22px);border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(232,184,75,.1)">
+      <div style="flex-shrink:0;width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#fff3e0,#ffe0b2);display:flex;align-items:center;justify-content:center;font-size:24px">🏯</div>
+      <div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:clamp(13px,1.6vw,17px);color:var(--gold);font-weight:700;margin-bottom:5px">极高文化认知度</div>
+        <div class="sub">刘备、曹操、诸葛亮家喻户晓，玩家有天然代入感，无需额外背景铺垫</div>
+      </div>
+    </div>
+
+    <div class="anim d3" style="display:flex;gap:14px;padding:clamp(14px,2vw,22px);border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(232,184,75,.1)">
+      <div style="flex-shrink:0;width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#fce4ec,#f8bbd0);display:flex;align-items:center;justify-content:center;font-size:24px">⚔️</div>
+      <div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:clamp(13px,1.6vw,17px);color:var(--gold);font-weight:700;margin-bottom:5px">丰富的人物与战役</div>
+        <div class="sub">200+ 历史人物、数十场经典战役，足够支撑抽卡、探险等多元玩法</div>
+      </div>
+    </div>
+
+    <div class="anim d4" style="display:flex;gap:14px;padding:clamp(14px,2vw,22px);border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(232,184,75,.1)">
+      <div style="flex-shrink:0;width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#e8f5e9,#c8e6c9);display:flex;align-items:center;justify-content:center;font-size:24px">🎲</div>
+      <div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:clamp(13px,1.6vw,17px);color:var(--gold);font-weight:700;margin-bottom:5px">策略性天然契合游戏</div>
+        <div class="sub">三国的权谋对抗与游戏中的战斗、阵营逻辑高度匹配，玩法设计自然贴合</div>
+      </div>
+    </div>
+
+    <div class="anim d5" style="display:flex;gap:14px;padding:clamp(14px,2vw,22px);border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(232,184,75,.1)">
+      <div style="flex-shrink:0;width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#e3f2fd,#bbdefb);display:flex;align-items:center;justify-content:center;font-size:24px">📚</div>
+      <div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:clamp(13px,1.6vw,17px);color:var(--gold);font-weight:700;margin-bottom:5px">知识考点清晰可测</div>
+        <div class="sub">战役、人物、典故均有明确史料依据，答题题库容易扩充且客观性强</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  04  答题闯关
+═══════════════════════════════════ -->
+<section class="slide" id="s4" style="background:linear-gradient(160deg,#100c04 60%,#1a0a00 100%);align-items:center">
+  <!-- left: text -->
+  <div style="flex:1;padding:clamp(28px,4vw,64px);display:flex;flex-direction:column;justify-content:center">
+    <div class="label anim d1" style="--anim:fadeIn">核心玩法 01</div>
+    <div class="hdg anim d2" style="margin-top:10px;margin-bottom:8px">答题闯关</div>
+    <div class="rule anim d2"></div>
+    <div class="sub anim d3" style="max-width:380px;margin-bottom:24px">
+      每关由一组三国知识问答构成，答题解锁关卡、获取奖励。难度分普通 / 精英 / 传说三档。
+    </div>
+    <!-- game loop steps -->
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="anim d3" style="display:flex;align-items:center;gap:12px">
+        <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#7a1a0e);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:var(--gold);flex-shrink:0">1</div>
+        <div style="font-size:clamp(12px,1.4vw,14px);color:var(--dim)">选难度→答题→获得星级评定</div>
+      </div>
+      <div class="anim d4" style="display:flex;align-items:center;gap:12px">
+        <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#7a1a0e);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:var(--gold);flex-shrink:0">2</div>
+        <div style="font-size:clamp(12px,1.4vw,14px);color:var(--dim)">首次通关额外奖励金币（10/30/60）</div>
+      </div>
+      <div class="anim d5" style="display:flex;align-items:center;gap:12px">
+        <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#7a1a0e);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:var(--gold);flex-shrink:0">3</div>
+        <div style="font-size:clamp(12px,1.4vw,14px);color:var(--dim)">攒知识币→抽武将卡→提升战力</div>
+      </div>
+      <div class="anim d6" style="display:flex;align-items:center;gap:12px">
+        <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#c0392b,#7a1a0e);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;color:var(--gold);flex-shrink:0">4</div>
+        <div style="font-size:clamp(12px,1.4vw,14px);color:var(--dim)">满星通关后解锁扫荡模式</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- right: quiz screen mockup -->
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:28px 40px 28px 0" class="anim d2" style2="--anim:slideR">
+    <div class="phone" style="width:clamp(200px,24vw,280px);height:clamp(380px,48vw,520px);display:flex;flex-direction:column">
+      <!-- top bar -->
+      <div style="background:linear-gradient(135deg,#2a1200,#5a2800);padding:9px 14px;display:flex;align-items:center;justify-content:space-between">
+        <span style="color:#e8b84b;font-family:'Noto Serif SC',serif;font-weight:700;font-size:11px">⚔️ 第5关 · 精英</span>
+        <div style="display:flex;gap:2px">
+          <div style="width:18px;height:18px;border-radius:50%;background:rgba(232,184,75,.2);border:1px solid rgba(232,184,75,.4);display:flex;align-items:center;justify-content:center;font-size:8px;color:#e8b84b">❤️</div>
+          <div style="width:18px;height:18px;border-radius:50%;background:rgba(232,184,75,.2);border:1px solid rgba(232,184,75,.4);display:flex;align-items:center;justify-content:center;font-size:8px;color:#e8b84b">❤️</div>
+          <div style="width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:8px;color:rgba(255,255,255,.3)">🖤</div>
+        </div>
+      </div>
+      <!-- progress -->
+      <div style="padding:6px 12px;background:#fef9ef;border-bottom:1px solid #e8dcc8">
+        <div style="display:flex;justify-content:space-between;font-size:9px;color:#888;margin-bottom:4px"><span>第 2 / 4 题</span><span style="color:#f5a623">⏱ 28s</span></div>
+        <div class="prog-wrap"><div class="prog-fill" style="width:50%"></div></div>
+      </div>
+      <!-- question -->
+      <div style="flex:1;background:#fef9ef;padding:12px;display:flex;flex-direction:column;overflow:hidden">
+        <div style="font-size:12px;color:#2c2c2c;line-height:1.6;margin-bottom:12px;padding:10px;background:white;border-radius:10px;border:1px solid #e8dcc8;font-weight:500">
+          「赤壁之战」中，孙刘联军使用的战术核心是？
+        </div>
+        <!-- options -->
+        <div style="display:flex;flex-direction:column;gap:7px;flex:1">
+          <div style="padding:9px 11px;border-radius:8px;border:1.5px solid #43a047;background:rgba(67,160,71,.08);font-size:10px;color:#2e7d32;font-weight:600;display:flex;align-items:center;gap:6px">
+            <div style="width:18px;height:18px;border-radius:50%;background:#43a047;color:white;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0">A</div>
+            火攻连环船，借东风而成
+          </div>
+          <div style="padding:9px 11px;border-radius:8px;border:1.5px solid #ef5350;background:rgba(239,83,80,.08);font-size:10px;color:#c62828;font-weight:500;display:flex;align-items:center;gap:6px">
+            <div style="width:18px;height:18px;border-radius:50%;background:#ef5350;color:white;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0">B</div>
+            水军正面强攻曹营
+          </div>
+          <div style="padding:9px 11px;border-radius:8px;border:1.5px solid #e8dcc8;background:white;font-size:10px;color:#666;display:flex;align-items:center;gap:6px">
+            <div style="width:18px;height:18px;border-radius:50%;background:#ddd;color:white;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0">C</div>
+            奇袭曹营后方粮草
+          </div>
+          <div style="padding:9px 11px;border-radius:8px;border:1.5px solid #e8dcc8;background:white;font-size:10px;color:#666;display:flex;align-items:center;gap:6px">
+            <div style="width:18px;height:18px;border-radius:50%;background:#ddd;color:white;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0">D</div>
+            以反间计瓦解曹军士气
+          </div>
+        </div>
+        <!-- result -->
+        <div style="margin-top:8px;padding:8px 10px;border-radius:8px;background:rgba(67,160,71,.1);border:1px solid rgba(67,160,71,.3);font-size:9px;color:#2e7d32;font-weight:600">
+          ✓ 正确！+15 知识币
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  05  武将抽卡
+═══════════════════════════════════ -->
+<section class="slide" id="s5" style="background:linear-gradient(145deg,#100c04,#12081a);align-items:center">
+  <!-- left: gacha screen mockup -->
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:28px 0 28px 40px" class="anim d1" style2="--anim:slideL">
+    <div class="phone" style="width:clamp(200px,24vw,280px);height:clamp(380px,48vw,520px);display:flex;flex-direction:column">
+      <div style="background:linear-gradient(135deg,#1a0030,#3d0070);padding:9px 14px;display:flex;align-items:center;justify-content:space-between">
+        <span style="color:#ce93d8;font-family:'Noto Serif SC',serif;font-weight:700;font-size:11px">🃏 武将图鉴</span>
+        <span style="font-size:10px;color:rgba(206,147,216,.7)">已拥有 18/36</span>
+      </div>
+      <!-- card grid -->
+      <div style="flex:1;background:#fef9ef;padding:10px;overflow:hidden">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:7px">
+          <!-- legend card -->
+          <div style="border-radius:10px;padding:8px;background:linear-gradient(160deg,#fff8e0,#fff3c0);border:2px solid #ffd700;display:flex;flex-direction:column;align-items:center;box-shadow:0 2px 8px rgba(255,215,0,.2)">
+            <div style="font-size:22px;margin-bottom:3px">🦁</div>
+            <div style="font-size:8px;font-weight:700;color:#5d3a1a;text-align:center">关羽</div>
+            <div style="font-size:7px;color:#f5a623;letter-spacing:1px">★★★</div>
+            <div style="font-size:7px;background:linear-gradient(135deg,#ffd700,#ff9800);color:white;padding:1px 5px;border-radius:4px;margin-top:2px">传说</div>
+          </div>
+          <!-- rare card -->
+          <div style="border-radius:10px;padding:8px;background:linear-gradient(160deg,#f3e5ff,#ede0ff);border:2px solid #7c4dff;display:flex;flex-direction:column;align-items:center;box-shadow:0 2px 8px rgba(124,77,255,.15)">
+            <div style="font-size:22px;margin-bottom:3px">🐉</div>
+            <div style="font-size:8px;font-weight:700;color:#2c2c2c;text-align:center">赵云</div>
+            <div style="font-size:7px;color:#7c4dff;letter-spacing:1px">★★</div>
+            <div style="font-size:7px;background:linear-gradient(135deg,#7c4dff,#448aff);color:white;padding:1px 5px;border-radius:4px;margin-top:2px">稀有</div>
+          </div>
+          <!-- common card -->
+          <div style="border-radius:10px;padding:8px;background:linear-gradient(160deg,#e8f5e9,#dcedc8);border:2px solid #66bb6a;display:flex;flex-direction:column;align-items:center">
+            <div style="font-size:22px;margin-bottom:3px">🏹</div>
+            <div style="font-size:8px;font-weight:700;color:#2c2c2c;text-align:center">黄忠</div>
+            <div style="font-size:7px;color:#66bb6a;letter-spacing:1px">★</div>
+            <div style="font-size:7px;background:linear-gradient(135deg,#66bb6a,#43a047);color:white;padding:1px 5px;border-radius:4px;margin-top:2px">普通</div>
+          </div>
+          <!-- locked -->
+          <div style="border-radius:10px;padding:8px;background:#f5f0e8;border:2px solid #ddd;display:flex;flex-direction:column;align-items:center;position:relative;opacity:.5">
+            <div style="font-size:22px;margin-bottom:3px;filter:grayscale(1)">👑</div>
+            <div style="font-size:8px;color:#999;text-align:center">曹操</div>
+            <div style="font-size:10px;color:#ccc">🔒</div>
+          </div>
+          <div style="border-radius:10px;padding:8px;background:#f5f0e8;border:2px solid #ddd;display:flex;flex-direction:column;align-items:center;position:relative;opacity:.5">
+            <div style="font-size:22px;margin-bottom:3px;filter:grayscale(1)">🔥</div>
+            <div style="font-size:8px;color:#999;text-align:center">诸葛亮</div>
+            <div style="font-size:10px;color:#ccc">🔒</div>
+          </div>
+          <div style="border-radius:10px;padding:8px;background:#f5f0e8;border:2px solid #ddd;display:flex;flex-direction:column;align-items:center;position:relative;opacity:.5">
+            <div style="font-size:22px;margin-bottom:3px;filter:grayscale(1)">⚡</div>
+            <div style="font-size:8px;color:#999;text-align:center">张飞</div>
+            <div style="font-size:10px;color:#ccc">🔒</div>
+          </div>
+        </div>
+        <!-- gacha button -->
+        <div style="margin-top:10px;padding:10px;background:linear-gradient(135deg,#7c4dff,#448aff);border-radius:10px;text-align:center;font-size:11px;color:white;font-weight:700;box-shadow:0 4px 12px rgba(124,77,255,.4)">
+          🃏 十连抽 · 820 知识币
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- right: text -->
+  <div style="flex:1;padding:clamp(28px,4vw,64px);display:flex;flex-direction:column;justify-content:center">
+    <div class="label anim d1" style="--anim:fadeIn">核心系统</div>
+    <div class="hdg anim d2" style="margin-top:10px;margin-bottom:8px">武将图鉴 · 抽卡</div>
+    <div class="rule anim d2"></div>
+    <div class="sub anim d3" style="max-width:360px;margin-bottom:20px">
+      36 位三国武将，三档稀有度，每位武将的属性与真实历史定位对应。
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="anim d3" style="padding:12px 14px;border-radius:10px;background:rgba(255,215,0,.06);border:1px solid rgba(255,215,0,.2);display:flex;align-items:center;gap:10px">
+        <span style="font-size:20px">⭐⭐⭐</span>
+        <div>
+          <div style="font-size:13px;color:#ffd700;font-weight:700">传说武将</div>
+          <div style="font-size:11px;color:var(--dim)">刘备、关羽、诸葛亮等——战力最高，技能独特</div>
+        </div>
+      </div>
+      <div class="anim d4" style="padding:12px 14px;border-radius:10px;background:rgba(124,77,255,.06);border:1px solid rgba(124,77,255,.2);display:flex;align-items:center;gap:10px">
+        <span style="font-size:20px">⭐⭐</span>
+        <div>
+          <div style="font-size:13px;color:#b39ddb;font-weight:700">稀有武将</div>
+          <div style="font-size:11px;color:var(--dim)">赵云、黄忠、周瑜等——属性均衡，各有专长</div>
+        </div>
+      </div>
+      <div class="anim d5" style="padding:12px 14px;border-radius:10px;background:rgba(67,160,71,.06);border:1px solid rgba(67,160,71,.2);display:flex;align-items:center;gap:10px">
+        <span style="font-size:20px">⭐</span>
+        <div>
+          <div style="font-size:13px;color:#a5d6a7;font-weight:700">普通武将</div>
+          <div style="font-size:11px;color:var(--dim)">张辽、夏侯惇等——基础战力，升级潜力大</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  06  大富翁
+═══════════════════════════════════ -->
+<section class="slide" id="s6" style="background:linear-gradient(160deg,#0a1205,#0f1a08);align-items:center">
+  <div style="flex:1;padding:clamp(28px,4vw,64px);display:flex;flex-direction:column;justify-content:center">
+    <div class="label anim d1" style="--anim:fadeIn">核心玩法 02</div>
+    <div class="hdg anim d2" style="margin-top:10px;margin-bottom:8px">三国大富翁</div>
+    <div class="rule anim d2"></div>
+    <div class="sub anim d3" style="max-width:380px;margin-bottom:22px">
+      以三国地图为棋盘，三方阵营争夺城池。掷骰前进，落地触发问答，答对才能占领城池。
+    </div>
+    <div style="display:flex;flex-direction:column;gap:11px">
+      <div class="anim d3" style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)">
+        <span style="font-size:22px;flex-shrink:0">🎲</span>
+        <div style="font-size:clamp(12px,1.4vw,14px);color:var(--dim)"><b style="color:var(--cream)">掷骰 + 问答联动</b>——答对题目才能成功占领城池</div>
+      </div>
+      <div class="anim d4" style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)">
+        <span style="font-size:22px;flex-shrink:0">⚔️</span>
+        <div style="font-size:clamp(12px,1.4vw,14px);color:var(--dim)"><b style="color:var(--cream)">武将战力决定攻城</b>——抽到好武将，攻城胜率更高</div>
+      </div>
+      <div class="anim d5" style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)">
+        <span style="font-size:22px;flex-shrink:0">🏆</span>
+        <div style="font-size:clamp(12px,1.4vw,14px);color:var(--dim)"><b style="color:var(--cream)">历史最高分上榜</b>——实时排行榜激励反复对局</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- right: monopoly board mockup -->
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:28px 40px 28px 0" class="anim d2">
+    <div class="phone" style="width:clamp(200px,24vw,280px);height:clamp(380px,48vw,520px);display:flex;flex-direction:column">
+      <div style="background:linear-gradient(135deg,#0a2200,#1a4400);padding:9px 14px;display:flex;align-items:center;justify-content:space-between">
+        <span style="color:#a5d6a7;font-family:'Noto Serif SC',serif;font-weight:700;font-size:11px">🎲 乱世棋盘</span>
+        <span style="font-size:10px;color:rgba(165,214,167,.6)">第3回合</span>
+      </div>
+      <div style="flex:1;background:#f0f7f0;padding:10px;display:flex;flex-direction:column;overflow:hidden">
+        <!-- faction status -->
+        <div style="display:flex;gap:5px;margin-bottom:8px">
+          <div style="flex:1;padding:5px;border-radius:6px;background:#ffebee;border:1px solid #ef5350;text-align:center">
+            <div style="font-size:8px;color:#c62828;font-weight:700">吴 🔴</div>
+            <div style="font-size:9px;color:#c62828">7城</div>
+          </div>
+          <div style="flex:1;padding:5px;border-radius:6px;background:#e8f5e9;border:1px solid #43a047;text-align:center">
+            <div style="font-size:8px;color:#2e7d32;font-weight:700">蜀 🟢</div>
+            <div style="font-size:9px;color:#2e7d32">5城</div>
+          </div>
+          <div style="flex:1;padding:5px;border-radius:6px;background:#e3f2fd;border:1px solid #1976d2;text-align:center">
+            <div style="font-size:8px;color:#0d47a1;font-weight:700">魏 🔵</div>
+            <div style="font-size:9px;color:#0d47a1">6城</div>
+          </div>
+        </div>
+        <!-- board grid -->
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;flex:1">
+          <div style="background:#ffcdd2;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#c62828;border:1px solid #ef9a9a">吴</div>
+          <div style="background:#f5f5f5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;border:1px solid #e0e0e0">驿</div>
+          <div style="background:#c8e6c9;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#2e7d32;border:1px solid #a5d6a7">蜀</div>
+          <div style="background:#f5f5f5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;border:1px solid #e0e0e0">城</div>
+          <div style="background:#bbdefb;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#1565c0;border:1px solid #90caf9">魏</div>
+
+          <div style="background:#f5f5f5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;border:1px solid #e0e0e0">城</div>
+          <div style="background:#fff3e0;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#f57c00;border:2px solid #f5a623;font-weight:700">⚔</div>
+          <div style="background:#f5f5f5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;border:1px solid #e0e0e0">城</div>
+          <div style="background:#c8e6c9;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#2e7d32;border:1px solid #a5d6a7">蜀</div>
+          <div style="background:#f5f5f5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;border:1px solid #e0e0e0">驿</div>
+
+          <div style="background:#ffcdd2;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#c62828;border:1px solid #ef9a9a">吴</div>
+          <div style="background:#f5f5f5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;border:1px solid #e0e0e0">城</div>
+          <div style="background:#fffde7;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#f57c00;border:1px solid #fff176;font-weight:700">起点</div>
+          <div style="background:#f5f5f5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;border:1px solid #e0e0e0">城</div>
+          <div style="background:#bbdefb;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#1565c0;border:1px solid #90caf9">魏</div>
+
+          <div style="background:#f5f5f5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;border:1px solid #e0e0e0">城</div>
+          <div style="background:#bbdefb;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#1565c0;border:1px solid #90caf9">魏</div>
+          <div style="background:#f5f5f5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;border:1px solid #e0e0e0">驿</div>
+          <div style="background:#ffcdd2;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#c62828;border:1px solid #ef9a9a">吴</div>
+          <div style="background:#f5f5f5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;border:1px solid #e0e0e0">城</div>
+
+          <div style="background:#bbdefb;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#1565c0;border:1px solid #90caf9">魏</div>
+          <div style="background:#f5f5f5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;border:1px solid #e0e0e0">城</div>
+          <div style="background:#ffcdd2;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#c62828;border:1px solid #ef9a9a">吴</div>
+          <div style="background:#f5f5f5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;border:1px solid #e0e0e0">驿</div>
+          <div style="background:#c8e6c9;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#2e7d32;border:1px solid #a5d6a7">蜀</div>
+        </div>
+        <!-- dice button -->
+        <div style="margin-top:8px;padding:9px;background:linear-gradient(135deg,#2e7d32,#1b5e20);border-radius:10px;text-align:center;font-size:10px;color:white;font-weight:700">
+          🎲 掷骰子
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  07  乱世探险
+═══════════════════════════════════ -->
+<section class="slide" id="s7" style="background:linear-gradient(160deg,#050a14,#0a1020);align-items:center">
+  <!-- left: dungeon mockup -->
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:28px 0 28px 40px" class="anim d1" style2="--anim:slideL">
+    <div class="phone" style="width:clamp(200px,24vw,280px);height:clamp(380px,48vw,520px);display:flex;flex-direction:column">
+      <div style="background:linear-gradient(135deg,#050a1a,#0a1530);padding:9px 14px;display:flex;align-items:center;justify-content:space-between">
+        <span style="color:#90caf9;font-family:'Noto Serif SC',serif;font-weight:700;font-size:11px">🗺️ 乱世探险</span>
+        <span style="font-size:10px;color:rgba(144,202,249,.6)">最深 B12层</span>
+      </div>
+      <div style="flex:1;background:#0a1020;padding:10px;display:flex;flex-direction:column;gap:7px;overflow:hidden">
+        <!-- floor items -->
+        <div style="padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(144,202,249,.15);display:flex;align-items:center;gap:10px">
+          <div style="font-family:'Noto Serif SC',serif;font-weight:900;font-size:20px;color:rgba(144,202,249,.3);min-width:28px">B1</div>
+          <div>
+            <div style="font-size:10px;color:#90caf9;font-weight:700">黄巾乱起</div>
+            <div style="font-size:8px;color:rgba(144,202,249,.5);margin-top:2px">新兵试炼 ⭐</div>
+          </div>
+          <div style="margin-left:auto;font-size:9px;color:#43a047;background:rgba(67,160,71,.15);padding:2px 7px;border-radius:4px">通关✓</div>
+        </div>
+        <div style="padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(144,202,249,.15);display:flex;align-items:center;gap:10px">
+          <div style="font-family:'Noto Serif SC',serif;font-weight:900;font-size:20px;color:rgba(144,202,249,.3);min-width:28px">B5</div>
+          <div>
+            <div style="font-size:10px;color:#90caf9;font-weight:700">官渡之战</div>
+            <div style="font-size:8px;color:rgba(144,202,249,.5);margin-top:2px">袁曹对决 ⭐⭐</div>
+          </div>
+          <div style="margin-left:auto;font-size:9px;color:#43a047;background:rgba(67,160,71,.15);padding:2px 7px;border-radius:4px">通关✓</div>
+        </div>
+        <div style="padding:10px 12px;border-radius:10px;background:rgba(239,83,80,.08);border:2px solid rgba(239,83,80,.4);display:flex;align-items:center;gap:10px">
+          <div style="font-family:'Noto Serif SC',serif;font-weight:900;font-size:20px;color:#ef5350;min-width:28px">B10</div>
+          <div>
+            <div style="font-size:10px;color:#ef5350;font-weight:700">赤壁之战 👑</div>
+            <div style="font-size:8px;color:rgba(239,83,80,.6);margin-top:2px">BOSS关 ⭐⭐⭐</div>
+          </div>
+          <div style="margin-left:auto;font-size:9px;color:#ef5350;background:rgba(239,83,80,.15);padding:2px 7px;border-radius:4px">挑战!</div>
+        </div>
+        <div style="padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:10px;opacity:.5">
+          <div style="font-family:'Noto Serif SC',serif;font-weight:900;font-size:20px;color:rgba(255,255,255,.2);min-width:28px">B15</div>
+          <div>
+            <div style="font-size:10px;color:rgba(255,255,255,.4);font-weight:700">三分天下</div>
+            <div style="font-size:8px;color:rgba(255,255,255,.25);margin-top:2px">精英层 🔒</div>
+          </div>
+        </div>
+        <div style="padding:10px 12px;border-radius:10px;background:rgba(255,215,0,.04);border:1px solid rgba(255,215,0,.1);display:flex;align-items:center;gap:10px;opacity:.4">
+          <div style="font-family:'Noto Serif SC',serif;font-weight:900;font-size:20px;color:rgba(255,215,0,.2);min-width:28px">B20</div>
+          <div>
+            <div style="font-size:10px;color:rgba(255,215,0,.5);font-weight:700">五丈原 · 终局</div>
+            <div style="font-size:8px;color:rgba(255,215,0,.3);margin-top:2px">传说 🔒</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- right: text -->
+  <div style="flex:1;padding:clamp(28px,4vw,64px);display:flex;flex-direction:column;justify-content:center">
+    <div class="label anim d1" style="--anim:fadeIn">核心玩法 03</div>
+    <div class="hdg anim d2" style="margin-top:10px;margin-bottom:8px">乱世探险</div>
+    <div class="rule anim d2"></div>
+    <div class="sub anim d3" style="max-width:360px;margin-bottom:20px">
+      以三国历史时间线为探险地图，每层对应真实战役。武将被动技能与其历史特长绑定。
+    </div>
+    <!-- skill cards -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="anim d3" style="padding:12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(232,184,75,.12)">
+        <div style="font-size:11px;color:var(--gold);font-weight:700;margin-bottom:4px">🔥 诸葛孔明</div>
+        <div style="font-size:10px;color:var(--dim);line-height:1.6">智谋：答题时额外显示一条提示线索</div>
+      </div>
+      <div class="anim d4" style="padding:12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(232,184,75,.12)">
+        <div style="font-size:11px;color:var(--gold);font-weight:700;margin-bottom:4px">⚔️ 关云长</div>
+        <div style="font-size:10px;color:var(--dim);line-height:1.6">万夫不当：战斗伤害+30%，先手攻击</div>
+      </div>
+      <div class="anim d5" style="padding:12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(232,184,75,.12)">
+        <div style="font-size:11px;color:var(--gold);font-weight:700;margin-bottom:4px">🏹 黄忠</div>
+        <div style="font-size:10px;color:var(--dim);line-height:1.6">百步穿杨：答对率越高暴击率越高</div>
+      </div>
+      <div class="anim d6" style="padding:12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(232,184,75,.12)">
+        <div style="font-size:11px;color:var(--gold);font-weight:700;margin-bottom:4px">🛡️ 赵子龙</div>
+        <div style="font-size:10px;color:var(--dim);line-height:1.6">七进七出：受致命伤时概率免伤</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  08  排行榜 & 擂台
+═══════════════════════════════════ -->
+<section class="slide" id="s8" style="background:linear-gradient(145deg,#100c04,#0c0e1a);align-items:center">
+  <!-- left: leaderboard + arena mockup -->
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;padding:28px 0 28px 40px" class="anim d1" style2="--anim:slideL">
+    <div class="phone" style="width:clamp(200px,24vw,280px);height:clamp(380px,48vw,520px);display:flex;flex-direction:column">
+      <div style="background:linear-gradient(135deg,#1a1200,#3d2800);padding:9px 14px;display:flex;align-items:center;gap:6px">
+        <span style="color:#e8b84b;font-family:'Noto Serif SC',serif;font-weight:700;font-size:11px">🏆 战力排行榜</span>
+      </div>
+      <div style="flex:1;background:#fef9ef;padding:10px;display:flex;flex-direction:column;gap:6px;overflow:hidden">
+        <!-- rank items -->
+        <div style="padding:9px 10px;background:linear-gradient(135deg,#fff8e0,#fff3c0);border-radius:10px;border:1px solid #ffd700;display:flex;align-items:center;gap:8px">
+          <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#ffd700,#ff9800);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:white">1</div>
+          <div style="font-size:18px">🦁</div>
+          <div style="flex:1">
+            <div style="font-size:10px;font-weight:700;color:#5d3a1a">战神关羽</div>
+            <div style="font-size:8px;color:#888">⚔️ 战力 8,420</div>
+          </div>
+          <div style="font-size:9px;color:#f5a623;font-weight:700">👑</div>
+        </div>
+        <div style="padding:9px 10px;background:white;border-radius:10px;border:1px solid #e8dcc8;display:flex;align-items:center;gap:8px">
+          <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#bdbdbd,#9e9e9e);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:white">2</div>
+          <div style="font-size:18px">🐉</div>
+          <div style="flex:1">
+            <div style="font-size:10px;font-weight:700;color:#2c2c2c">赵云传人</div>
+            <div style="font-size:8px;color:#888">⚔️ 战力 7,350</div>
+          </div>
+        </div>
+        <div style="padding:9px 10px;background:white;border-radius:10px;border:1px solid #e8dcc8;display:flex;align-items:center;gap:8px">
+          <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#8d6e63,#6d4c41);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:white">3</div>
+          <div style="font-size:18px">🔥</div>
+          <div style="flex:1">
+            <div style="font-size:10px;font-weight:700;color:#2c2c2c">孔明智者</div>
+            <div style="font-size:8px;color:#888">⚔️ 战力 6,820</div>
+          </div>
+        </div>
+        <div style="padding:9px 10px;background:#fff8f8;border-radius:10px;border:2px solid #f5a623;display:flex;align-items:center;gap:8px">
+          <div style="width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#f5a623,#e67e22);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:white">我</div>
+          <div style="font-size:18px">👤</div>
+          <div style="flex:1">
+            <div style="font-size:10px;font-weight:700;color:#f5a623">我的排名 #7</div>
+            <div style="font-size:8px;color:#888">⚔️ 战力 3,280</div>
+          </div>
+        </div>
+        <!-- tabs -->
+        <div style="display:flex;gap:5px;margin-top:4px">
+          <div style="flex:1;padding:6px;border-radius:7px;background:#f5a623;text-align:center;font-size:8px;color:white;font-weight:700">战力榜</div>
+          <div style="flex:1;padding:6px;border-radius:7px;background:#e8dcc8;text-align:center;font-size:8px;color:#888">探险榜</div>
+          <div style="flex:1;padding:6px;border-radius:7px;background:#e8dcc8;text-align:center;font-size:8px;color:#888">大富翁榜</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- right: text -->
+  <div style="flex:1;padding:clamp(28px,4vw,64px);display:flex;flex-direction:column;justify-content:center">
+    <div class="label anim d1" style="--anim:fadeIn">社交系统</div>
+    <div class="hdg anim d2" style="margin-top:10px;margin-bottom:8px">排行榜 · 擂台</div>
+    <div class="rule anim d2"></div>
+    <div class="sub anim d3" style="max-width:360px;margin-bottom:20px">
+      三维度排行榜，云存档跨设备同步。布置防守阵容，挑战全服玩家。
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="anim d3" style="padding:12px 14px;border-radius:10px;background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.15)">
+        <div style="font-size:13px;color:var(--gold);font-weight:700;margin-bottom:4px">⚔️ 战力排行榜</div>
+        <div style="font-size:12px;color:var(--dim)">汇总所有拥有武将的战力总和，真实反映收集深度</div>
+      </div>
+      <div class="anim d4" style="padding:12px 14px;border-radius:10px;background:rgba(144,202,249,.05);border:1px solid rgba(144,202,249,.15)">
+        <div style="font-size:13px;color:#90caf9;font-weight:700;margin-bottom:4px">🗺️ 探险层数榜</div>
+        <div style="font-size:12px;color:var(--dim)">记录历史最深探险层数，考验战力与知识储备</div>
+      </div>
+      <div class="anim d5" style="padding:12px 14px;border-radius:10px;background:rgba(165,214,167,.05);border:1px solid rgba(165,214,167,.15)">
+        <div style="font-size:13px;color:#a5d6a7;font-weight:700;margin-bottom:4px">🎲 大富翁积分榜</div>
+        <div style="font-size:12px;color:var(--dim)">历史最高单局积分，激励策略优化与反复对局</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  09  开发历程
+═══════════════════════════════════ -->
+<section class="slide" id="s9" style="background:linear-gradient(160deg,#100c04,#0a0c18);align-items:center;justify-content:center;flex-direction:column;padding:clamp(24px,3.5vh,44px) clamp(28px,5vw,80px)">
+  <div style="text-align:center;margin-bottom:clamp(14px,2vh,24px)">
+    <div class="label anim d1" style="--anim:fadeIn">开发历程</div>
+    <div class="hdg anim d2" style="margin-top:10px">从一个想法到可玩产品</div>
+  </div>
+  <!-- horizontal timeline -->
+  <div style="width:100%;max-width:1000px;position:relative">
+    <!-- connecting line -->
+    <div style="position:absolute;top:28px;left:5%;right:5%;height:2px;background:linear-gradient(90deg,var(--red),var(--gold));z-index:0" class="anim d2"></div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;position:relative;z-index:1">
+
+      <div class="anim d2" style="display:flex;flex-direction:column;align-items:center;text-align:center">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#2a1200,#5a2800);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:12px;box-shadow:0 0 20px rgba(232,184,75,.2)">💡</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:clamp(11px,1.3vw,14px);color:var(--gold);font-weight:700;margin-bottom:4px">立项</div>
+        <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.6">确定三国方向，设计答题闯关核心玩法</div>
+      </div>
+
+      <div class="anim d3" style="display:flex;flex-direction:column;align-items:center;text-align:center">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#1a0030,#3d0070);border:2px solid #7c4dff;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:12px;box-shadow:0 0 20px rgba(124,77,255,.2)">🃏</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:clamp(11px,1.3vw,14px);color:#b39ddb;font-weight:700;margin-bottom:4px">武将系统</div>
+        <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.6">36武将属性设计，抽卡系统，Supabase云存档</div>
+      </div>
+
+      <div class="anim d3" style="display:flex;flex-direction:column;align-items:center;text-align:center">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#0a2200,#1a4400);border:2px solid #43a047;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:12px;box-shadow:0 0 20px rgba(67,160,71,.2)">🎲</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:clamp(11px,1.3vw,14px);color:#a5d6a7;font-weight:700;margin-bottom:4px">多玩法扩展</div>
+        <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.6">大富翁、探险、擂台形成完整游戏循环</div>
+      </div>
+
+      <div class="anim d4" style="display:flex;flex-direction:column;align-items:center;text-align:center">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#1a0a00,#3d1a00);border:2px solid var(--red2);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:12px;box-shadow:0 0 20px rgba(224,92,79,.2)">🐛</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:clamp(11px,1.3vw,14px);color:var(--red2);font-weight:700;margin-bottom:4px">Debug</div>
+        <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.6">签到Bug、战力漂移、移动端适配全面修复</div>
+      </div>
+
+      <div class="anim d5" style="display:flex;flex-direction:column;align-items:center;text-align:center">
+        <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#2a1200,#5a2800);border:2px solid var(--gold2);display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:12px;box-shadow:0 0 20px rgba(247,224,154,.2)">🚀</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:clamp(11px,1.3vw,14px);color:var(--gold2);font-weight:700;margin-bottom:4px">上线运营</div>
+        <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.6">Zeabur自动部署，持续收集反馈迭代</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- tech stack row -->
+  <div class="anim d5" style="margin-top:clamp(18px,2.5vh,32px);display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
+    <div style="padding:6px 14px;border-radius:99px;background:rgba(232,184,75,.08);border:1px solid rgba(232,184,75,.2);font-size:11px;color:var(--gold)">HTML/CSS/JS</div>
+    <div style="padding:6px 14px;border-radius:99px;background:rgba(232,184,75,.08);border:1px solid rgba(232,184,75,.2);font-size:11px;color:var(--gold)">Supabase</div>
+    <div style="padding:6px 14px;border-radius:99px;background:rgba(232,184,75,.08);border:1px solid rgba(232,184,75,.2);font-size:11px;color:var(--gold)">Zeabur</div>
+    <div style="padding:6px 14px;border-radius:99px;background:rgba(232,184,75,.08);border:1px solid rgba(232,184,75,.2);font-size:11px;color:var(--gold)">GitHub CI/CD</div>
+    <div style="padding:6px 14px;border-radius:99px;background:rgba(232,184,75,.08);border:1px solid rgba(232,184,75,.2);font-size:11px;color:var(--gold)">ES Modules</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  10  挑战与解法
+═══════════════════════════════════ -->
+<section class="slide" id="s10" style="background:#100c04;align-items:center;justify-content:center;flex-direction:column;padding:clamp(24px,4vw,56px)">
+  <div style="text-align:center;margin-bottom:clamp(16px,2.5vh,28px)">
+    <div class="label anim d1" style="--anim:fadeIn">踩坑记录</div>
+    <div class="hdg anim d2" style="margin-top:10px">遇到的挑战</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,24px);max-width:960px;width:100%">
+
+    <div class="anim d2" style="border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);overflow:hidden">
+      <div style="padding:16px;border-bottom:1px solid rgba(255,255,255,.06)">
+        <div style="font-size:32px;margin-bottom:8px">💾</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:clamp(13px,1.6vw,17px);color:var(--red2);font-weight:700">存档合并冲突</div>
+      </div>
+      <div style="padding:16px">
+        <div style="font-size:clamp(11px,1.2vw,13px);color:rgba(245,237,212,.45);line-height:1.7;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.05)">
+          云端存档覆盖本地时，签到记录、金币等本地新增数据被清空
+        </div>
+        <div style="font-size:clamp(11px,1.2vw,13px);color:rgba(46,204,113,.85);line-height:1.7">
+          ✓ 改用<br><code style="font-size:11px;color:var(--gold);background:rgba(232,184,75,.08);padding:2px 6px;border-radius:4px">{ ...local, ...cloud }</code><br>合并策略，本地优先字段手动保留
+        </div>
+      </div>
+    </div>
+
+    <div class="anim d3" style="border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);overflow:hidden">
+      <div style="padding:16px;border-bottom:1px solid rgba(255,255,255,.06)">
+        <div style="font-size:32px;margin-bottom:8px">📊</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:clamp(13px,1.6vw,17px);color:var(--red2);font-weight:700">战力数值漂移</div>
+      </div>
+      <div style="padding:16px">
+        <div style="font-size:clamp(11px,1.2vw,13px);color:rgba(245,237,212,.45);line-height:1.7;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.05)">
+          浮点数运算导致同一武将同一等级战力每次刷新略有不同
+        </div>
+        <div style="font-size:clamp(11px,1.2vw,13px);color:rgba(46,204,113,.85);line-height:1.7">
+          ✓ 改为纯整数运算<br>基础值 + 属性和 + 等级加成<br>彻底消除浮点误差
+        </div>
+      </div>
+    </div>
+
+    <div class="anim d4" style="border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);overflow:hidden">
+      <div style="padding:16px;border-bottom:1px solid rgba(255,255,255,.06)">
+        <div style="font-size:32px;margin-bottom:8px">📱</div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:clamp(13px,1.6vw,17px);color:var(--red2);font-weight:700">移动端适配</div>
+      </div>
+      <div style="padding:16px">
+        <div style="font-size:clamp(11px,1.2vw,13px);color:rgba(245,237,212,.45);line-height:1.7;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.05)">
+          iOS 刘海屏导致底部 Tab Bar 被系统手势条遮挡
+        </div>
+        <div style="font-size:clamp(11px,1.2vw,13px);color:rgba(46,204,113,.85);line-height:1.7">
+          ✓ 用<br><code style="font-size:11px;color:var(--gold);background:rgba(232,184,75,.08);padding:2px 6px;border-radius:4px">env(safe-area-inset-bottom)</code><br>动态增加底部高度
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  11  迭代取舍
+═══════════════════════════════════ -->
+<section class="slide" id="s11" style="background:linear-gradient(135deg,#100c04,#10081a);align-items:center;justify-content:center;flex-direction:column;padding:clamp(24px,4vw,56px)">
+  <div style="text-align:center;margin-bottom:clamp(14px,2vh,24px)">
+    <div class="label anim d1" style="--anim:fadeIn">迭代取舍</div>
+    <div class="hdg anim d2" style="margin-top:10px">做了哪些调整？</div>
+  </div>
+  <div style="max-width:840px;width:100%;border-radius:16px;overflow:hidden;border:1px solid rgba(232,184,75,.12)" class="anim d2">
+    <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;background:rgba(232,184,75,.07);padding:12px 20px;font-family:'Noto Serif SC',serif;font-weight:700;font-size:clamp(12px,1.4vw,14px);color:var(--gold);letter-spacing:.04em">
+      <span>功能</span><span>最初设计</span><span>最终实现</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:13px 20px;border-top:1px solid rgba(232,184,75,.07);font-size:clamp(11px,1.3vw,13px);align-items:center">
+      <span style="color:var(--gold);font-weight:700">大富翁积分</span>
+      <span style="color:rgba(245,237,212,.35)">累计总积分</span>
+      <span style="color:rgba(46,204,113,.85)">历史最高分，更公平</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:13px 20px;border-top:1px solid rgba(232,184,75,.07);background:rgba(255,255,255,.02);font-size:clamp(11px,1.3vw,13px);align-items:center">
+      <span style="color:var(--gold);font-weight:700">攻城加成</span>
+      <span style="color:rgba(245,237,212,.35)">城池数量1:1加战力</span>
+      <span style="color:rgba(46,204,113,.85)">上限+5，防止滚雪球</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:13px 20px;border-top:1px solid rgba(232,184,75,.07);font-size:clamp(11px,1.3vw,13px);align-items:center">
+      <span style="color:var(--gold);font-weight:700">签到系统</span>
+      <span style="color:rgba(245,237,212,.35)">简单签到领金币</span>
+      <span style="color:rgba(46,204,113,.85)">日历+历史事件+武将奖励</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:13px 20px;border-top:1px solid rgba(232,184,75,.07);background:rgba(255,255,255,.02);font-size:clamp(11px,1.3vw,13px);align-items:center">
+      <span style="color:var(--gold);font-weight:700">排行榜</span>
+      <span style="color:rgba(245,237,212,.35)">单一战力榜</span>
+      <span style="color:rgba(46,204,113,.85)">战力/探险层/大富翁三榜</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;padding:13px 20px;border-top:1px solid rgba(232,184,75,.07);font-size:clamp(11px,1.3vw,13px);align-items:center">
+      <span style="color:var(--gold);font-weight:700">武将数量</span>
+      <span style="color:rgba(245,237,212,.35)">初期 12 位</span>
+      <span style="color:rgba(46,204,113,.85)">迭代扩充至 36 位</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  12  收获反思
+═══════════════════════════════════ -->
+<section class="slide" id="s12" style="background:#100c04;align-items:center;justify-content:center;flex-direction:column;padding:clamp(24px,4vw,56px)">
+  <div style="text-align:center;margin-bottom:clamp(16px,2.5vh,28px)">
+    <div class="label anim d1" style="--anim:fadeIn">收获与反思</div>
+    <div class="hdg anim d2" style="margin-top:10px">做完这个项目，我学到了什么</div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(12px,1.8vw,20px);max-width:760px;width:100%;margin-bottom:clamp(16px,2.5vh,26px)">
+    <div class="anim d2" style="padding:clamp(14px,2vw,22px);border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(232,184,75,.1);display:flex;gap:12px;align-items:flex-start">
+      <div style="font-size:28px;flex-shrink:0">🛠️</div>
+      <div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:clamp(13px,1.5vw,16px);color:var(--gold);font-weight:700;margin-bottom:5px">全栈独立开发</div>
+        <div class="sub" style="font-size:clamp(11px,1.2vw,13px)">从前端到数据库设计、CI/CD部署，独立完成整个技术链路</div>
+      </div>
+    </div>
+    <div class="anim d3" style="padding:clamp(14px,2vw,22px);border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(232,184,75,.1);display:flex;gap:12px;align-items:flex-start">
+      <div style="font-size:28px;flex-shrink:0">🎮</div>
+      <div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:clamp(13px,1.5vw,16px);color:var(--gold);font-weight:700;margin-bottom:5px">游戏设计思维</div>
+        <div class="sub" style="font-size:clamp(11px,1.2vw,13px)">反馈循环、难度曲线、成就激励——游戏设计与教育设计高度共通</div>
+      </div>
+    </div>
+    <div class="anim d4" style="padding:clamp(14px,2vw,22px);border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(232,184,75,.1);display:flex;gap:12px;align-items:flex-start">
+      <div style="font-size:28px;flex-shrink:0">🐛</div>
+      <div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:clamp(13px,1.5vw,16px);color:var(--gold);font-weight:700;margin-bottom:5px">Debug 是日常</div>
+        <div class="sub" style="font-size:clamp(11px,1.2vw,13px)">签到Bug、浮点漂移、ES Module缓存……真实项目比课本练习复杂得多</div>
+      </div>
+    </div>
+    <div class="anim d5" style="padding:clamp(14px,2vw,22px);border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(232,184,75,.1);display:flex;gap:12px;align-items:flex-start">
+      <div style="font-size:28px;flex-shrink:0">📚</div>
+      <div>
+        <div style="font-family:'Noto Serif SC',serif;font-size:clamp(13px,1.5vw,16px);color:var(--gold);font-weight:700;margin-bottom:5px">自己也学了三国</div>
+        <div class="sub" style="font-size:clamp(11px,1.2vw,13px)">写题库时查阅了大量史料，做游戏意外成了最高效的学史方式</div>
+      </div>
+    </div>
+  </div>
+  <div class="anim d5" style="max-width:560px;padding:16px 24px;border-radius:12px;background:linear-gradient(135deg,rgba(192,57,43,.1),rgba(232,184,75,.08));border:1px solid rgba(232,184,75,.18);text-align:center">
+    <div style="font-family:'Noto Serif SC',serif;font-size:clamp(14px,1.9vw,21px);color:var(--gold);letter-spacing:.06em;font-style:italic;line-height:1.6">「最好的学习，是创造一个<br>让别人也能学的东西」</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════
+  13  结尾
+═══════════════════════════════════ -->
+<section class="slide" id="s13" style="
+  background:radial-gradient(ellipse 100% 80% at 50% 100%,#3d1e00 0%,#1a0a00 40%,#080603 70%);
+  align-items:center;justify-content:center;flex-direction:column;
+">
+  <!-- mountain decoration -->
+  <svg style="position:absolute;bottom:0;left:0;width:100%;height:45%;opacity:.5" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax meet" fill="none">
+    <path d="M0 300 L180 100 L380 180 L580 60 L780 160 L980 80 L1200 140 L1200 300Z" fill="#1a0a00" opacity=".8"/>
+    <path d="M0 300 L120 180 L280 220 L460 140 L640 200 L820 150 L1020 190 L1200 160 L1200 300Z" fill="#0d0800"/>
   </svg>
 
-  <div class="main">
-    <div class="tag anim-fade d1">H5 游戏 · 历史知识</div>
-    <h1 class="display anim-up d2" style="color:var(--gold);margin-top:16px;text-shadow:0 0 60px rgba(232,184,75,.3)">
-      三国志探险
-    </h1>
-    <div class="rule anim-fade d3"></div>
-    <div class="subtitle anim-up d3">让历史知识好玩起来</div>
-    <p class="body-text anim-up d4" style="max-width:480px;font-size:clamp(13px,1.6vw,17px)">
-      一款以三国知识为内核，以多元玩法为载体的 H5 手游
-    </p>
-    <div class="author-row anim-fade d5">
-      <span>🏯</span>
-      <span>游戏开发历程分享</span>
-      <span>·</span>
-      <span style="color:var(--gold)">制作人：___</span>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     SLIDE 2  为什么做
-══════════════════════════════════════════════ -->
-<section class="slide" id="s2" style="flex-direction:column">
-  <div style="padding:clamp(20px,3vh,36px) clamp(24px,4vw,60px) 8px;text-align:center">
-    <div class="tag anim-fade">出发点</div>
-    <h2 class="section-title anim-up d1" style="margin-top:10px">为什么要做这件事？</h2>
-  </div>
-  <div style="flex:1;display:flex;position:relative;overflow:hidden">
-    <div class="col-old">
-      <div class="tag anim-fade" style="background:rgba(139,139,139,.1);border-color:#888;color:#aaa;margin-bottom:16px">传统学习</div>
-      <div class="pain-item anim-right d1">
-        <span class="pain-icon">📖</span>
-        <span class="pain-text">读史书、看三国演义<br>知识密度高，人物繁杂</span>
-      </div>
-      <div class="pain-item anim-right d2">
-        <span class="pain-icon">😵</span>
-        <span class="pain-text">100+ 人物难以区分<br>魏蜀吴势力关系混乱</span>
-      </div>
-      <div class="pain-item anim-right d3">
-        <span class="pain-icon">⏳</span>
-        <span class="pain-text">被动接收，记住了又忘<br>缺少主动"用"知识的场景</span>
-      </div>
-    </div>
-    <div class="vs-badge anim-scale d2">VS</div>
-    <div class="col-new">
-      <div class="tag gold-tag anim-fade" style="margin-bottom:16px">游戏化学习</div>
-      <div class="gain-item anim-up d1">
-        <span class="gain-icon">🎮</span>
-        <span class="gain-text">答题、对战、探险中用到知识<br>在"用"的过程中自然记住</span>
-      </div>
-      <div class="gain-item anim-up d2">
-        <span class="gain-icon">🏆</span>
-        <span class="gain-text">抽卡收集武将，成就系统<br>让了解历史有了<b style="color:var(--gold)">即时正反馈</b></span>
-      </div>
-      <div class="gain-item anim-up d3">
-        <span class="gain-icon">🔥</span>
-        <span class="gain-text">玩家主动探索、反复回看<br>知识留存率显著提升</span>
-      </div>
-    </div>
-  </div>
-  <div class="big-idea anim-fade d5">
-    学习是内核，游戏是载体
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     SLIDE 3  为什么选三国
-══════════════════════════════════════════════ -->
-<section class="slide" id="s3">
-  <div class="center pad" style="width:100%">
-    <div class="tag anim-fade">选题逻辑</div>
-    <h2 class="section-title anim-up d1" style="margin-top:10px">为什么偏偏选三国？</h2>
-    <div class="reason-grid">
-      <div class="reason-card card anim-up d1">
-        <div class="reason-num">01</div>
-        <div class="reason-title">极高的文化认知度</div>
-        <div class="reason-body">刘备、曹操、诸葛亮家喻户晓，玩家有天然代入感，无需额外背景铺垫</div>
-      </div>
-      <div class="reason-card card anim-up d2">
-        <div class="reason-num">02</div>
-        <div class="reason-title">丰富的人物与故事</div>
-        <div class="reason-body">200+ 历史人物、数十场经典战役，能撑起抽卡、擂台、探险等多元玩法</div>
-      </div>
-      <div class="reason-card card anim-up d3">
-        <div class="reason-num">03</div>
-        <div class="reason-title">策略性天然契合游戏</div>
-        <div class="reason-body">三国的权谋、阵营对抗与游戏中的战斗、大富翁阵营逻辑高度匹配</div>
-      </div>
-      <div class="reason-card card anim-up d4">
-        <div class="reason-num">04</div>
-        <div class="reason-title">知识考点清晰可测</div>
-        <div class="reason-body">战役、人物、典故均有明确史料依据，答题题库容易扩充且客观性强</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     SLIDE 4  核心玩法：答题闯关
-══════════════════════════════════════════════ -->
-<section class="slide" id="s4">
-  <div class="layout">
-    <!-- Quiz mockup -->
-    <div class="quiz-mock anim-scale d1">
-      <div style="font-family:var(--ff-serif);font-size:clamp(12px,1.5vw,15px);color:var(--gold);margin-bottom:10px;font-weight:700">⚔️ 第 3 关 · 精英</div>
-      <div class="mock-q">「赤壁之战」中，孙刘联军使用的战术核心是？</div>
-      <div class="mock-opt correct">A. 火攻连环船</div>
-      <div class="mock-opt wrong">B. 水军正面决战</div>
-      <div class="mock-opt">C. 奇袭曹营后方</div>
-      <div class="mock-opt">D. 反间计散兵</div>
-      <div style="margin-top:12px;padding:8px;border-radius:8px;background:rgba(46,204,113,.1);font-size:clamp(10px,1.1vw,12px);color:#2ecc71;font-family:var(--ff-sans)">
-        ✓ 正确！获得 15 知识币
-      </div>
-    </div>
-    <!-- Right column -->
-    <div class="right-col">
-      <div class="tag anim-fade">核心玩法</div>
-      <h2 class="section-title anim-up d1" style="margin-top:10px">答题闯关</h2>
-      <p class="body-text anim-up d2" style="max-width:420px">
-        每关由一组三国知识问答构成，玩家通过答题解锁关卡、获取奖励，难度分普通 / 精英 / 传说三档。
-      </p>
-      <div class="step-list">
-        <div class="step anim-up d2">
-          <div class="step-num">1</div>
-          <div class="step-text">选择关卡难度，答对题目获得星级评定</div>
-        </div>
-        <div class="step anim-up d3">
-          <div class="step-num">2</div>
-          <div class="step-text">首次通关赠送金币，可用于开启大富翁</div>
-        </div>
-        <div class="step anim-up d4">
-          <div class="step-num">3</div>
-          <div class="step-text">累积知识币抽取武将卡，解锁更多战力</div>
-        </div>
-        <div class="step anim-up d5">
-          <div class="step-num">4</div>
-          <div class="step-text">完成题库→扫荡模式，高效刷资源</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     SLIDE 5  游戏架构
-══════════════════════════════════════════════ -->
-<section class="slide" id="s5" style="align-items:center;padding:clamp(24px,4vw,56px)">
-  <!-- Hub diagram -->
-  <div class="hub-wrap anim-scale d1">
-    <!-- SVG spoke lines -->
-    <svg style="position:absolute;inset:0;width:100%;height:100%" viewBox="0 0 520 520">
-      <line x1="260" y1="260" x2="260" y2="80" stroke="rgba(232,184,75,.15)" stroke-width="1.5"/>
-      <line x1="260" y1="260" x2="420" y2="160" stroke="rgba(232,184,75,.15)" stroke-width="1.5"/>
-      <line x1="260" y1="260" x2="420" y2="360" stroke="rgba(232,184,75,.15)" stroke-width="1.5"/>
-      <line x1="260" y1="260" x2="260" y2="440" stroke="rgba(232,184,75,.15)" stroke-width="1.5"/>
-      <line x1="260" y1="260" x2="100" y2="360" stroke="rgba(232,184,75,.15)" stroke-width="1.5"/>
-      <line x1="260" y1="260" x2="100" y2="160" stroke="rgba(232,184,75,.15)" stroke-width="1.5"/>
-    </svg>
-    <!-- Center hub -->
-    <div class="hub-center">三国<br>知识<br>核心</div>
-    <!-- Nodes (% positions based on 520x520 viewBox → percent of wrapper) -->
-    <div class="spoke-node anim-fade d2" style="left:50%;top:15%"><span class="n-icon">⚔️</span><span class="n-label">答题闯关</span></div>
-    <div class="spoke-node anim-fade d2" style="left:81%;top:31%"><span class="n-icon">🎲</span><span class="n-label">大富翁</span></div>
-    <div class="spoke-node anim-fade d3" style="left:81%;top:69%"><span class="n-icon">🗺️</span><span class="n-label">乱世探险</span></div>
-    <div class="spoke-node anim-fade d3" style="left:50%;top:85%"><span class="n-icon">🃏</span><span class="n-label">武将抽卡</span></div>
-    <div class="spoke-node anim-fade d4" style="left:19%;top:69%"><span class="n-icon">🏟️</span><span class="n-label">擂台对战</span></div>
-    <div class="spoke-node anim-fade d4" style="left:19%;top:31%"><span class="n-icon">📅</span><span class="n-label">每日签到</span></div>
-  </div>
-  <!-- Right description -->
-  <div class="right-desc">
-    <div class="tag anim-fade">游戏架构</div>
-    <h2 class="section-title anim-up d1" style="margin-top:10px">六大模块，<br>共同服务于一个核心</h2>
-    <p class="body-text anim-up d2" style="max-width:340px">
-      所有玩法都以三国历史知识为驱动：<br>知道的越多，玩得越好。
-    </p>
-    <div class="module-list">
-      <div class="mod-item anim-up d2"><div class="mod-dot"></div>知识 → 金币 → 资源循环</div>
-      <div class="mod-item anim-up d3"><div class="mod-dot"></div>武将卡绑定真实历史属性</div>
-      <div class="mod-item anim-up d4"><div class="mod-dot"></div>云存档 + 排行榜，社交竞争</div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     SLIDE 6  大富翁
-══════════════════════════════════════════════ -->
-<section class="slide" id="s6">
-  <div class="layout">
-    <div class="map-area anim-scale d1">
-      <div style="font-family:var(--ff-serif);font-size:13px;color:var(--gold);font-weight:700;margin-bottom:4px">🗺️ 乱世棋盘</div>
-      <div style="font-family:var(--ff-sans);font-size:11px;color:var(--muted);margin-bottom:8px">三方阵营争夺城池</div>
-      <div class="map-grid">
-        <!-- Row simulating a faction board -->
-        <div class="map-cell wu">吴</div><div class="map-cell">城</div><div class="map-cell shu">蜀</div><div class="map-cell">城</div><div class="map-cell wei">魏</div>
-        <div class="map-cell">驿</div><div class="map-cell wu">吴</div><div class="map-cell">城</div><div class="map-cell wei">魏</div><div class="map-cell">驿</div>
-        <div class="map-cell shu">蜀</div><div class="map-cell">城</div><div class="map-cell" style="background:rgba(232,184,75,.1);border-color:rgba(232,184,75,.3);font-size:8px">起点</div><div class="map-cell">城</div><div class="map-cell shu">蜀</div>
-        <div class="map-cell">驿</div><div class="map-cell wei">魏</div><div class="map-cell">城</div><div class="map-cell wu">吴</div><div class="map-cell">驿</div>
-        <div class="map-cell wei">魏</div><div class="map-cell">城</div><div class="map-cell wu">吴</div><div class="map-cell">城</div><div class="map-cell shu">蜀</div>
-      </div>
-      <div style="margin-top:10px;display:flex;gap:6px;justify-content:center;font-family:var(--ff-sans);font-size:10px">
-        <span style="color:#e74c3c">■ 吴</span>
-        <span style="color:#2ecc71">■ 蜀</span>
-        <span style="color:#3498db">■ 魏</span>
-      </div>
-    </div>
-    <div class="feat-col">
-      <div class="tag anim-fade">亮点玩法</div>
-      <h2 class="section-title anim-up d1" style="margin-top:10px">三国大富翁</h2>
-      <div class="feat-card anim-up d2">
-        <span class="feat-icon">🎲</span>
-        <div>
-          <div class="feat-title">掷骰 + 知识问答触发</div>
-          <div class="feat-desc">落地城池触发历史问答，答对才能成功占领，知识直接影响胜负</div>
-        </div>
-      </div>
-      <div class="feat-card anim-up d3">
-        <span class="feat-icon">⚔️</span>
-        <div>
-          <div class="feat-title">武将战力决定攻城成败</div>
-          <div class="feat-desc">派遣拥有的武将出战，战力越高胜率越大，抽卡收集有了实战价值</div>
-        </div>
-      </div>
-      <div class="feat-card anim-up d4">
-        <span class="feat-icon">🏆</span>
-        <div>
-          <div class="feat-title">实时排行榜</div>
-          <div class="feat-desc">历史最高积分上榜，激励反复对局、优化阵容与策略</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     SLIDE 7  乱世探险
-══════════════════════════════════════════════ -->
-<section class="slide" id="s7">
-  <div class="layout">
-    <div class="dungeon-art">
-      <div style="font-family:var(--ff-serif);font-size:clamp(13px,1.5vw,16px);color:var(--gold);font-weight:700;margin-bottom:4px">🗺️ 探险层级</div>
-      <div class="floor-bar anim-up d1">
-        <span class="floor-num">B1</span>
-        <span>黄巾乱起 · 新兵试炼</span>
-      </div>
-      <div class="floor-bar anim-up d2">
-        <span class="floor-num">B5</span>
-        <span>官渡之战 · 袁曹对决</span>
-      </div>
-      <div class="floor-bar anim-up d3" style="border-color:rgba(231,76,60,.3)">
-        <span class="floor-num floor-boss">B10</span>
-        <span class="floor-boss">赤壁 · BOSS关</span>
-      </div>
-      <div class="floor-bar anim-up d4">
-        <span class="floor-num">B15</span>
-        <span>三分天下 · 精英层</span>
-      </div>
-      <div class="floor-bar anim-up d5" style="border-color:rgba(232,184,75,.3)">
-        <span class="floor-num" style="color:var(--gold2)">B20</span>
-        <span style="color:var(--gold)">五丈原 · 传说终局</span>
-      </div>
-    </div>
-    <div class="right-col">
-      <div class="tag anim-fade">亮点玩法</div>
-      <h2 class="section-title anim-up d1" style="margin-top:10px">乱世探险</h2>
-      <p class="body-text anim-up d2" style="max-width:380px">
-        以三国历史时间线为探险地图，每层对应真实战役与事件，武将被动技能与其历史特长绑定。
-      </p>
-      <div class="skill-grid">
-        <div class="skill-card anim-up d3">
-          <div class="skill-name">🔥 诸葛孔明</div>
-          <div class="skill-desc">智谋：答题时额外显示一条提示线索</div>
-        </div>
-        <div class="skill-card anim-up d3">
-          <div class="skill-name">⚔️ 关云长</div>
-          <div class="skill-desc">万夫不当：战斗伤害+30%，先手攻击</div>
-        </div>
-        <div class="skill-card anim-up d4">
-          <div class="skill-name">🏹 黄忠</div>
-          <div class="skill-desc">百步穿杨：答对率越高暴击率越高</div>
-        </div>
-        <div class="skill-card anim-up d4">
-          <div class="skill-name">🛡️ 赵子龙</div>
-          <div class="skill-desc">七进七出：受到致命伤时概率免伤</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     SLIDE 8  其他模块
-══════════════════════════════════════════════ -->
-<section class="slide" id="s8">
-  <div class="center pad" style="width:100%">
-    <div class="tag anim-fade">更多玩法</div>
-    <h2 class="section-title anim-up d1" style="margin-top:10px">还有这些</h2>
-    <div class="mod-grid">
-      <div class="mod-card card anim-up d1">
-        <span class="mod-emoji">🃏</span>
-        <div class="mod-content">
-          <div class="mod-name">武将抽卡</div>
-          <div class="mod-detail">36 位三国武将，普通 / 稀有 / 传说三档稀有度，星级与历史地位对应。用知识币抽取，收集即学习。</div>
-        </div>
-      </div>
-      <div class="mod-card card anim-up d2">
-        <span class="mod-emoji">🏟️</span>
-        <div class="mod-content">
-          <div class="mod-name">武将擂台</div>
-          <div class="mod-detail">布置防守阵容，挑战其他玩家实时对战。战力由武将真实属性（武力+智力+魅力）计算，公平透明。</div>
-        </div>
-      </div>
-      <div class="mod-card card anim-up d3">
-        <span class="mod-emoji">📅</span>
-        <div class="mod-content">
-          <div class="mod-name">每日签到</div>
-          <div class="mod-detail">连续签到奖励递增，日历展示历史今日三国事件，让每次登录都有新收获。</div>
-        </div>
-      </div>
-      <div class="mod-card card anim-up d4">
-        <span class="mod-emoji">☁️</span>
-        <div class="mod-content">
-          <div class="mod-name">云存档 + 排行榜</div>
-          <div class="mod-detail">基于 Supabase 实现跨设备存档同步，战力榜、探险层榜、大富翁积分榜三维度排名。</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     SLIDE 9  开发历程
-══════════════════════════════════════════════ -->
-<section class="slide" id="s9">
-  <div class="center pad" style="width:100%">
-    <div class="tag anim-fade">开发历程</div>
-    <h2 class="section-title anim-up d1" style="margin-top:10px">从一个想法到可玩产品</h2>
-    <div class="timeline">
-      <div class="tl-item anim-right d1">
-        <div class="tl-dot">💡</div>
-        <div class="tl-body">
-          <div class="tl-phase">Phase 1 · 立项</div>
-          <div class="tl-desc">确定"三国知识游戏化"方向，设计核心答题闯关玩法，搭建基础 H5 框架</div>
-        </div>
-      </div>
-      <div class="tl-item anim-right d2">
-        <div class="tl-dot">🃏</div>
-        <div class="tl-body">
-          <div class="tl-phase">Phase 2 · 武将系统</div>
-          <div class="tl-desc">设计 36 位武将属性、稀有度体系，实现抽卡与战力计算，上线 Supabase 云存档</div>
-        </div>
-      </div>
-      <div class="tl-item anim-right d3">
-        <div class="tl-dot">🎲</div>
-        <div class="tl-body">
-          <div class="tl-phase">Phase 3 · 多玩法扩展</div>
-          <div class="tl-desc">添加大富翁（阵营棋盘）、乱世探险（地下城）、擂台对战，形成完整游戏循环</div>
-        </div>
-      </div>
-      <div class="tl-item anim-right d4">
-        <div class="tl-dot">🐛</div>
-        <div class="tl-body">
-          <div class="tl-phase">Phase 4 · Debug 与优化</div>
-          <div class="tl-desc">修复签到、战力计算、存档合并等系列 Bug，移动端适配（Safe Area、Tab Bar）</div>
-        </div>
-      </div>
-      <div class="tl-item anim-right d5">
-        <div class="tl-dot">🚀</div>
-        <div class="tl-body">
-          <div class="tl-phase">Phase 5 · 上线运营</div>
-          <div class="tl-desc">Zeabur + GitHub 自动部署，实现每次 push 秒级上线，持续收集反馈迭代</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     SLIDE 10  挑战与解法
-══════════════════════════════════════════════ -->
-<section class="slide" id="s10">
-  <div class="center pad" style="width:100%">
-    <div class="tag anim-fade">踩坑记录</div>
-    <h2 class="section-title anim-up d1" style="margin-top:10px">遇到的挑战</h2>
-    <div class="challenge-grid">
-      <div class="ch-card anim-up d1">
-        <div class="ch-icon">💾</div>
-        <div class="ch-title">存档合并冲突</div>
-        <div class="ch-problem">云端存档覆盖本地时，签到记录、金币等本地新增数据被清空</div>
-        <div class="ch-solution">改用 <code style="color:var(--gold);font-size:11px">{ ...local, ...cloud }</code> 合并策略，本地优先字段手动保留</div>
-      </div>
-      <div class="ch-card anim-up d2">
-        <div class="ch-icon">📊</div>
-        <div class="ch-title">战力数值漂移</div>
-        <div class="ch-problem">浮点数运算导致同一武将同一等级战力每次刷新略有不同，排行榜数据不稳定</div>
-        <div class="ch-solution">改为纯整数运算（基础值 + 属性和 + 等级加成），彻底消除浮点误差</div>
-      </div>
-      <div class="ch-card anim-up d3">
-        <div class="ch-icon">📱</div>
-        <div class="ch-title">移动端适配</div>
-        <div class="ch-problem">iOS 刘海屏导致底部 Tab Bar 被系统手势条遮挡，全面屏下布局错乱</div>
-        <div class="ch-solution">用 <code style="color:var(--gold);font-size:11px">env(safe-area-inset-bottom)</code> 动态增加底部高度，Tab Bar 自身吸收 Safe Area</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     SLIDE 11  迭代取舍
-══════════════════════════════════════════════ -->
-<section class="slide" id="s11">
-  <div class="center pad" style="width:100%">
-    <div class="tag anim-fade">迭代取舍</div>
-    <h2 class="section-title anim-up d1" style="margin-top:10px">做了哪些调整？</h2>
-    <div class="compare-table anim-up d2">
-      <div class="ct-head">
-        <span>功能</span>
-        <span>最初设计</span>
-        <span>最终实现</span>
-      </div>
-      <div class="ct-row">
-        <span class="ct-feature">大富翁积分</span>
-        <span class="ct-before">累计总积分</span>
-        <span class="ct-after">历史最高分，更公平</span>
-      </div>
-      <div class="ct-row">
-        <span class="ct-feature">城池攻城加成</span>
-        <span class="ct-before">城池数量 1:1 加战力</span>
-        <span class="ct-after">上限 +5，防止滚雪球</span>
-      </div>
-      <div class="ct-row">
-        <span class="ct-feature">签到系统</span>
-        <span class="ct-before">简单签到领金币</span>
-        <span class="ct-after">日历+历史事件+武将奖励</span>
-      </div>
-      <div class="ct-row">
-        <span class="ct-feature">排行榜</span>
-        <span class="ct-before">单一战力榜</span>
-        <span class="ct-after">战力 / 探险层 / 大富翁三榜</span>
-      </div>
-      <div class="ct-row">
-        <span class="ct-feature">武将数量</span>
-        <span class="ct-before">初期 12 位</span>
-        <span class="ct-after">迭代扩充至 36 位</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     SLIDE 12  收获反思
-══════════════════════════════════════════════ -->
-<section class="slide" id="s12">
-  <div class="center pad" style="width:100%">
-    <div class="tag anim-fade">收获与反思</div>
-    <h2 class="section-title anim-up d1" style="margin-top:10px">做完这个项目，我学到了什么</h2>
-    <div class="harvest-grid">
-      <div class="hv-card anim-up d1">
-        <div class="hv-icon">🛠️</div>
-        <div class="hv-title">全栈独立开发能力</div>
-        <div class="hv-text">从前端 H5、数据库设计（Supabase）到 CI/CD 自动部署，独立完成整个技术链路</div>
-      </div>
-      <div class="hv-card anim-up d2">
-        <div class="hv-icon">🎮</div>
-        <div class="hv-title">游戏设计思维</div>
-        <div class="hv-text">反馈循环、难度曲线、成就激励——游戏设计与教育设计有高度共通之处</div>
-      </div>
-      <div class="hv-card anim-up d3">
-        <div class="hv-icon">🐛</div>
-        <div class="hv-title">Debug 是日常</div>
-        <div class="hv-text">签到 Bug、浮点漂移、ES Module 缓存……真实项目的 Bug 比课本练习复杂得多</div>
-      </div>
-      <div class="hv-card anim-up d4">
-        <div class="hv-icon">📚</div>
-        <div class="hv-title">自己也学了三国</div>
-        <div class="hv-text">写题库的过程逼着我查了大量史料，没想到做游戏反而是最高效的学史方式</div>
-      </div>
-    </div>
-    <div class="closing-quote anim-fade d5">
-      「最好的学习，是创造一个让别人也能学的东西」
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════
-     SLIDE 13  结尾
-══════════════════════════════════════════════ -->
-<section class="slide" id="s13">
-  <!-- Mountain silhouette at bottom -->
-  <svg class="mountains2" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax meet" fill="none">
-    <path d="M0 300 L200 120 L400 200 L600 80 L800 180 L1000 100 L1200 150 L1200 300Z" fill="#1a0a00" opacity=".8"/>
-    <path d="M0 300 L150 200 L300 240 L500 160 L700 220 L900 170 L1100 210 L1200 180 L1200 300Z" fill="#0d0a06"/>
-  </svg>
-
-  <div class="main" style="height:100%;padding-bottom:8vh">
-    <div class="star-row anim-fade d1">★ ★ ★</div>
-    <h1 class="display anim-up d2" style="color:var(--gold);font-size:clamp(32px,5vw,64px);margin-top:12px">
-      欢迎来玩！
-    </h1>
-    <div class="rule anim-fade d3"></div>
-    <p class="body-text anim-up d3" style="font-size:clamp(14px,1.8vw,20px);letter-spacing:.05em">
+  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center;padding:32px;padding-bottom:10vh">
+    <div style="font-size:28px;color:var(--gold);letter-spacing:10px;margin-bottom:16px" class="anim d1">★ ★ ★</div>
+    <div style="font-family:'Noto Serif SC',serif;font-weight:900;font-size:clamp(42px,7vw,88px);line-height:1;
+      background:linear-gradient(160deg,#f7e09a,#e8b84b,#c49020);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+      filter:drop-shadow(0 0 40px rgba(232,184,75,.25));
+      margin-bottom:14px;letter-spacing:.05em;
+      " class="anim d1">欢迎来玩！</div>
+    <div class="rule" style="margin:0 auto 18px" class="anim d2"></div>
+    <div style="font-size:clamp(14px,1.8vw,20px);color:rgba(245,237,212,.65);letter-spacing:.12em;margin-bottom:24px" class="anim d2">
       三国志探险 · 让历史知识好玩起来
-    </p>
-    <div class="game-url anim-up d4">
-      sanguogame.zeabur.app
     </div>
-    <div class="invite anim-fade d5">
-      扫码 / 点链接直接玩，无需下载
+
+    <!-- URL card -->
+    <div class="anim d3" style="display:flex;align-items:center;gap:16px;padding:14px 28px;border-radius:16px;background:rgba(232,184,75,.07);border:1px solid rgba(232,184,75,.2)">
+      <div style="font-size:36px">📱</div>
+      <div style="text-align:left">
+        <div style="font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:4px">游戏地址</div>
+        <div style="font-size:clamp(14px,1.8vw,18px);color:var(--gold);font-weight:700;letter-spacing:.05em">sanguogame.zeabur.app</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:3px">无需下载 · 即开即玩</div>
+      </div>
     </div>
-    <div class="qr-placeholder anim-scale d5">📱</div>
-    <div class="anim-fade d6" style="margin-top:20px;font-family:var(--ff-sans);font-size:12px;color:var(--muted);letter-spacing:1px">
-      谢谢观看 · 欢迎提问
+
+    <div class="anim d4" style="margin-top:24px;font-size:clamp(12px,1.5vw,15px);color:rgba(245,237,212,.4);letter-spacing:2px">
+      谢谢观看 · 欢迎提问 🏯
     </div>
   </div>
 </section>
 
 <script>
 const TOTAL = 13;
-const slides = document.querySelectorAll('.slide');
-const nav = document.getElementById('nav');
-const progress = document.getElementById('progress');
-const counter = document.getElementById('counter');
-let current = 0;
+const slides = [...document.querySelectorAll('.slide')];
 
-// Build nav dots
-slides.forEach((_, i) => {
+// build dots
+const nav = document.getElementById('nav');
+slides.forEach((_,i)=>{
   const d = document.createElement('div');
-  d.className = 'dot' + (i === 0 ? ' active' : '');
-  d.onclick = () => goTo(i);
+  d.className = 'nd'+(i===0?' on':'');
+  d.onclick = ()=>goTo(i);
   nav.appendChild(d);
 });
 
-function goTo(i) {
-  slides[i].scrollIntoView({ behavior: 'smooth' });
+let cur = 0;
+function goTo(i){slides[i].scrollIntoView({behavior:'smooth'})}
+
+function setState(i){
+  cur=i;
+  document.querySelectorAll('.nd').forEach((d,j)=>d.classList.toggle('on',j===i));
+  document.getElementById('pgbar').style.width = ((i+1)/TOTAL*100)+'%';
+  document.getElementById('ctr').textContent = String(i+1).padStart(2,'0')+' / '+String(TOTAL).padStart(2,'0');
 }
 
-function updateState(i) {
-  current = i;
-  document.querySelectorAll('.dot').forEach((d, j) => d.classList.toggle('active', j === i));
-  progress.style.width = ((i + 1) / TOTAL * 100) + '%';
-  counter.textContent = (i + 1) + ' / ' + TOTAL;
-}
-
-// IntersectionObserver for visibility + animation trigger
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
+const io = new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
       e.target.classList.add('visible');
-      const idx = Array.from(slides).indexOf(e.target);
-      updateState(idx);
+      setState(slides.indexOf(e.target));
     }
   });
-}, { threshold: 0.5 });
+},{threshold:0.55});
+slides.forEach(s=>io.observe(s));
 
-slides.forEach(s => io.observe(s));
-
-// Keyboard navigation
-document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
-    e.preventDefault();
-    if (current < TOTAL - 1) goTo(current + 1);
-  } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
-    e.preventDefault();
-    if (current > 0) goTo(current - 1);
-  }
+// keyboard
+document.addEventListener('keydown',e=>{
+  if(['ArrowDown','ArrowRight','Space',' '].includes(e.key)){e.preventDefault();if(cur<TOTAL-1)goTo(cur+1)}
+  else if(['ArrowUp','ArrowLeft'].includes(e.key)){e.preventDefault();if(cur>0)goTo(cur-1)}
 });
 
-// Touch/swipe
-let touchY = 0;
-document.addEventListener('touchstart', e => { touchY = e.touches[0].clientY; }, { passive: true });
-document.addEventListener('touchend', e => {
-  const dy = touchY - e.changedTouches[0].clientY;
-  if (Math.abs(dy) > 40) {
-    if (dy > 0 && current < TOTAL - 1) goTo(current + 1);
-    else if (dy < 0 && current > 0) goTo(current - 1);
-  }
-}, { passive: true });
+// swipe
+let ty=0;
+document.addEventListener('touchstart',e=>{ty=e.touches[0].clientY},{passive:true});
+document.addEventListener('touchend',e=>{
+  const d=ty-e.changedTouches[0].clientY;
+  if(Math.abs(d)>40){if(d>0&&cur<TOTAL-1)goTo(cur+1);else if(d<0&&cur>0)goTo(cur-1)}
+},{passive:true});
 
-// Wheel
-let wheelLock = false;
-document.addEventListener('wheel', e => {
-  if (wheelLock) return;
-  wheelLock = true;
-  setTimeout(() => { wheelLock = false; }, 800);
-  if (e.deltaY > 0 && current < TOTAL - 1) goTo(current + 1);
-  else if (e.deltaY < 0 && current > 0) goTo(current - 1);
-}, { passive: true });
+// wheel
+let wl=false;
+document.addEventListener('wheel',e=>{
+  if(wl)return;wl=true;setTimeout(()=>{wl=false},900);
+  if(e.deltaY>0&&cur<TOTAL-1)goTo(cur+1);
+  else if(e.deltaY<0&&cur>0)goTo(cur-1);
+},{passive:true});
 
-// Init
-updateState(0);
+setState(0);
 slides[0].classList.add('visible');
 </script>
 </body>
