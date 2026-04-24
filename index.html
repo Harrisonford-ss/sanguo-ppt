@@ -609,79 +609,275 @@ body{height:100%;font-family:'Noto Sans SC',sans-serif;overflow-x:hidden;backgro
   </div>
 </section>
 
-<!-- ══════ S9 · 制作步骤与工具 ══════ -->
+<!-- ══════ S9 · 制作流程总览 ══════ -->
 <section class="slide" id="s9">
   <div class="ov" style="background:linear-gradient(135deg,#0d0b08,#0f0d12)"></div>
-
-  <div style="position:relative;z-index:2;width:100%;display:flex;flex-direction:column;padding:clamp(24px,4vw,52px)">
-    <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:6px">
-      <span class="chip chip-g a d1">制作步骤</span>
-    </div>
+  <div style="position:relative;z-index:2;width:100%;height:100%;display:flex;flex-direction:column;padding:clamp(22px,3.5vw,48px)">
+    <span class="chip chip-g a d1" style="margin-bottom:12px;width:fit-content">制作流程</span>
     <h2 class="hdg a d2" style="margin-bottom:6px">从一个想法到完整游戏</h2>
-    <div class="rule a d3"></div>
+    <div class="rule a d3" style="margin-bottom:20px"></div>
 
-    <!-- 时间线 -->
-    <div class="a d3" style="display:flex;gap:0;align-items:stretch;margin:16px 0;overflow:hidden">
-      <div style="display:flex;flex-direction:column;align-items:center;gap:0;flex-shrink:0;margin-right:16px">
-        <div style="width:2px;flex:1;background:linear-gradient(transparent,rgba(232,184,75,.6))"></div>
-        <div style="width:10px;height:10px;border-radius:50%;background:var(--gold);flex-shrink:0"></div>
-        <div style="width:2px;flex:1;background:rgba(232,184,75,.3)"></div>
-      </div>
-
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;flex:1">
-        <div style="padding:14px;border-radius:12px;background:rgba(232,184,75,.07);border:1px solid rgba(232,184,75,.22)">
-          <div style="font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:6px">STEP 1</div>
-          <div style="font-size:18px;margin-bottom:6px">💡</div>
-          <div style="font-family:var(--ff-t);font-size:clamp(12px,1.4vw,16px);color:var(--gold);margin-bottom:6px">需求设计</div>
-          <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.7">确定玩法模块<br>设计经济循环<br>规划数据结构</div>
+    <!-- 横向时间线 -->
+    <div class="a d3" style="position:relative;margin-bottom:24px">
+      <!-- 连接线 -->
+      <div style="position:absolute;top:28px;left:calc(12.5% + 8px);right:calc(12.5% + 8px);height:2px;background:linear-gradient(90deg,rgba(232,184,75,.6),rgba(232,184,75,.2))"></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center">
+          <div style="width:56px;height:56px;border-radius:50%;background:rgba(232,184,75,.15);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:10px;position:relative;z-index:1">💡</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(13px,1.5vw,17px);color:var(--gold);margin-bottom:4px">STEP 1 · 策划</div>
+          <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.7">明确目标玩家群体<br>设计六大玩法模块<br>规划三种货币循环<br>拆解数据结构需求</div>
         </div>
-        <div style="padding:14px;border-radius:12px;background:rgba(74,144,217,.07);border:1px solid rgba(74,144,217,.22)">
-          <div style="font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:6px">STEP 2</div>
-          <div style="font-size:18px;margin-bottom:6px">🤖</div>
-          <div style="font-family:var(--ff-t);font-size:clamp(12px,1.4vw,16px);color:#a8d4ff;margin-bottom:6px">AI 辅助开发</div>
-          <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.7">Claude Code CLI<br>逐模块迭代<br>边玩边调整</div>
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center">
+          <div style="width:56px;height:56px;border-radius:50%;background:rgba(74,144,217,.15);border:2px solid var(--wei);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:10px;position:relative;z-index:1">🤖</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(13px,1.5vw,17px);color:#a8d4ff;margin-bottom:4px">STEP 2 · 开发</div>
+          <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.7">Claude Code 辅助编码<br>逐模块迭代上线<br>纯原生 JS，零框架<br>约 9500 行代码</div>
         </div>
-        <div style="padding:14px;border-radius:12px;background:rgba(239,83,80,.07);border:1px solid rgba(239,83,80,.22)">
-          <div style="font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:6px">STEP 3</div>
-          <div style="font-size:18px;margin-bottom:6px">🎨</div>
-          <div style="font-family:var(--ff-t);font-size:clamp(12px,1.4vw,16px);color:#ffb0a8;margin-bottom:6px">美术资源</div>
-          <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.7">AI 绘图生成<br>36张武将立绘<br>场景/背景/UI</div>
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center">
+          <div style="width:56px;height:56px;border-radius:50%;background:rgba(239,83,80,.15);border:2px solid var(--wu);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:10px;position:relative;z-index:1">🎨</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(13px,1.5vw,17px);color:#ffb0a8;margin-bottom:4px">STEP 3 · 美术</div>
+          <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.7">AI 绘图生成全部资源<br>36张武将立绘<br>13张历史场景图<br>统一风格压缩 webp</div>
         </div>
-        <div style="padding:14px;border-radius:12px;background:rgba(76,175,80,.07);border:1px solid rgba(76,175,80,.22)">
-          <div style="font-size:9px;color:var(--muted);letter-spacing:1px;margin-bottom:6px">STEP 4</div>
-          <div style="font-size:18px;margin-bottom:6px">☁️</div>
-          <div style="font-family:var(--ff-t);font-size:clamp(12px,1.4vw,16px);color:#a8f0a8;margin-bottom:6px">云端与部署</div>
-          <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.7">Supabase 数据库<br>Zeabur 部署<br>GitHub 自动 CI/CD</div>
+        <div style="display:flex;flex-direction:column;align-items:center;text-align:center">
+          <div style="width:56px;height:56px;border-radius:50%;background:rgba(76,175,80,.15);border:2px solid var(--shu);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:10px;position:relative;z-index:1">🚀</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(13px,1.5vw,17px);color:#a8f0a8;margin-bottom:4px">STEP 4 · 上线</div>
+          <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.7">Supabase 接入云端<br>Zeabur 一键部署<br>GitHub 自动 CI/CD<br>推送即上线</div>
         </div>
       </div>
     </div>
 
-    <!-- 工具栈 -->
-    <div class="a d4" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
-      <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-align:center">
-        <div style="font-size:20px;margin-bottom:6px">🤖</div>
-        <div style="font-size:clamp(10px,1.1vw,13px);color:var(--cream);font-weight:700">Claude Code</div>
-        <div style="font-size:9px;color:var(--muted);margin-top:3px">AI 编程助手</div>
+    <!-- 工具栈 + 数据 -->
+    <div class="a d4" style="display:grid;grid-template-columns:2fr 1fr;gap:14px;flex:1">
+      <div style="padding:16px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)">
+        <div style="font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:12px">🛠️ 使用到的工具</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+          <div style="padding:10px 8px;border-radius:9px;background:rgba(255,255,255,.04);text-align:center">
+            <div style="font-size:18px;margin-bottom:4px">🤖</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--cream);font-weight:700">Claude Code</div>
+            <div style="font-size:9px;color:var(--muted);margin-top:2px">AI 编程 CLI</div>
+          </div>
+          <div style="padding:10px 8px;border-radius:9px;background:rgba(255,255,255,.04);text-align:center">
+            <div style="font-size:18px;margin-bottom:4px">🎨</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--cream);font-weight:700">AI 绘图</div>
+            <div style="font-size:9px;color:var(--muted);margin-top:2px">全部美术资源</div>
+          </div>
+          <div style="padding:10px 8px;border-radius:9px;background:rgba(255,255,255,.04);text-align:center">
+            <div style="font-size:18px;margin-bottom:4px">🌐</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--cream);font-weight:700">原生 Web</div>
+            <div style="font-size:9px;color:var(--muted);margin-top:2px">HTML/CSS/JS</div>
+          </div>
+          <div style="padding:10px 8px;border-radius:9px;background:rgba(255,255,255,.04);text-align:center">
+            <div style="font-size:18px;margin-bottom:4px">⚡</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--cream);font-weight:700">Supabase</div>
+            <div style="font-size:9px;color:var(--muted);margin-top:2px">云端数据库</div>
+          </div>
+          <div style="padding:10px 8px;border-radius:9px;background:rgba(255,255,255,.04);text-align:center">
+            <div style="font-size:18px;margin-bottom:4px">🚀</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--cream);font-weight:700">Zeabur</div>
+            <div style="font-size:9px;color:var(--muted);margin-top:2px">一键部署</div>
+          </div>
+          <div style="padding:10px 8px;border-radius:9px;background:rgba(255,255,255,.04);text-align:center">
+            <div style="font-size:18px;margin-bottom:4px">🐙</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--cream);font-weight:700">GitHub</div>
+            <div style="font-size:9px;color:var(--muted);margin-top:2px">版本管理 CI/CD</div>
+          </div>
+        </div>
       </div>
-      <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-align:center">
-        <div style="font-size:20px;margin-bottom:6px">🌐</div>
-        <div style="font-size:clamp(10px,1.1vw,13px);color:var(--cream);font-weight:700">原生 Web</div>
-        <div style="font-size:9px;color:var(--muted);margin-top:3px">零框架依赖</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="padding:14px;border-radius:12px;background:rgba(232,184,75,.07);border:1px solid rgba(232,184,75,.2);text-align:center;flex:1">
+          <div style="font-family:var(--ff-t);font-size:clamp(28px,3.5vw,44px);color:var(--gold)">~9500</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">行代码</div>
+        </div>
+        <div style="padding:14px;border-radius:12px;background:rgba(76,175,80,.07);border:1px solid rgba(76,175,80,.2);text-align:center;flex:1">
+          <div style="font-family:var(--ff-t);font-size:clamp(28px,3.5vw,44px);color:#a8f0a8">0</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">框架依赖</div>
+        </div>
+        <div style="padding:14px;border-radius:12px;background:rgba(74,144,217,.07);border:1px solid rgba(74,144,217,.2);text-align:center;flex:1">
+          <div style="font-family:var(--ff-t);font-size:clamp(28px,3.5vw,44px);color:#a8d4ff">16</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:4px">个 JS 模块</div>
+        </div>
       </div>
-      <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-align:center">
-        <div style="font-size:20px;margin-bottom:6px">🎨</div>
-        <div style="font-size:clamp(10px,1.1vw,13px);color:var(--cream);font-weight:700">AI 绘图</div>
-        <div style="font-size:9px;color:var(--muted);margin-top:3px">全部美术资源</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ S9b · Claude Code 工作方式 ══════ -->
+<section class="slide" id="s9b">
+  <div class="ov" style="background:linear-gradient(135deg,#0d0b08,#0d0b14)"></div>
+  <div style="position:relative;z-index:2;width:100%;height:100%;display:flex;padding:clamp(22px,3.5vw,48px);gap:clamp(20px,3vw,48px)">
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+      <span class="chip chip-b a d1" style="margin-bottom:16px;width:fit-content">Claude Code × 开发</span>
+      <h2 class="hdg a d2" style="margin-bottom:6px">AI 如何真正<br>参与到开发中？</h2>
+      <div class="rule a d3" style="margin-bottom:18px"></div>
+      <div class="sub a d3" style="margin-bottom:20px">不是"让 AI 帮我写代码"<br>而是把 AI 当成一个随时在线的协作伙伴<br>从设计、编码、调试到重构，全程介入</div>
+
+      <div class="a d4" style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:10px;background:rgba(74,144,217,.08);border:1px solid rgba(74,144,217,.2)">
+          <div style="font-size:16px;flex-shrink:0">💬</div>
+          <div>
+            <div style="font-size:clamp(11px,1.3vw,14px);color:#a8d4ff;font-weight:700;margin-bottom:3px">用自然语言描述需求</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.6">「帮我做一个大富翁，棋盘要有魏蜀吴三个势力，玩家答题才能占城」→ Claude 给出方案并实现</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:10px;background:rgba(232,184,75,.07);border:1px solid rgba(232,184,75,.2)">
+          <div style="font-size:16px;flex-shrink:0">🔄</div>
+          <div>
+            <div style="font-size:clamp(11px,1.3vw,14px);color:var(--gold);font-weight:700;margin-bottom:3px">快速迭代，边玩边改</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.6">发现问题直接描述 → Claude 定位并修复 → 再次测试，一个功能通常几轮对话就成型</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:10px;background:rgba(76,175,80,.07);border:1px solid rgba(76,175,80,.2)">
+          <div style="font-size:16px;flex-shrink:0">🏗️</div>
+          <div>
+            <div style="font-size:clamp(11px,1.3vw,14px);color:#a8f0a8;font-weight:700;margin-bottom:3px">架构也靠 AI 把关</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.6">状态管理混乱时，Claude 建议引入发布订阅模式 → 重构 gameState 解决所有模块同步问题</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:10px;background:rgba(239,83,80,.07);border:1px solid rgba(239,83,80,.2)">
+          <div style="font-size:16px;flex-shrink:0">⚡</div>
+          <div>
+            <div style="font-size:clamp(11px,1.3vw,14px);color:#ffb0a8;font-weight:700;margin-bottom:3px">我专注于「想清楚」</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.6">游戏设计决策由我来，具体实现交给 AI。人机分工清晰，效率大幅提升</div>
+          </div>
+        </div>
       </div>
-      <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-align:center">
-        <div style="font-size:20px;margin-bottom:6px">⚡</div>
-        <div style="font-size:clamp(10px,1.1vw,13px);color:var(--cream);font-weight:700">Supabase</div>
-        <div style="font-size:9px;color:var(--muted);margin-top:3px">云存档·排行榜</div>
+    </div>
+
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px">
+      <!-- 模块开发顺序 -->
+      <div style="padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)">
+        <div style="font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:12px">📦 模块开发顺序（从核心到外围）</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:22px;height:22px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#2c1a00;flex-shrink:0">1</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim)">状态管理 <span style="color:var(--muted)">gameState · localStorage</span></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(232,184,75,.4);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#2c1a00;flex-shrink:0">2</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim)">武将数据 + 抽卡系统</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(232,184,75,.3);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#2c1a00;flex-shrink:0">3</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim)">答题系统 + 300题录入</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(232,184,75,.2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#a8a890;flex-shrink:0">4</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim)">回合制战斗 + 关卡地图</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(232,184,75,.15);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#a8a890;flex-shrink:0">5</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim)">大富翁 (66格 + AI对手)</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(232,184,75,.1);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#a8a890;flex-shrink:0">6</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim)">Roguelike 探险地牢</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(74,144,217,.2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#a8d4ff;flex-shrink:0">7</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim)">Supabase 云端 + 排行榜</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:22px;height:22px;border-radius:50%;background:rgba(76,175,80,.2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#a8f0a8;flex-shrink:0">8</div>
+            <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim)">成就系统 (63个) + 签到</div>
+          </div>
+        </div>
       </div>
-      <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);text-align:center">
-        <div style="font-size:20px;margin-bottom:6px">🚀</div>
-        <div style="font-size:clamp(10px,1.1vw,13px);color:var(--cream);font-weight:700">Zeabur</div>
-        <div style="font-size:9px;color:var(--muted);margin-top:3px">一键部署</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ S9c · 美术资源 + 云端架构 ══════ -->
+<section class="slide" id="s9c">
+  <div class="ov" style="background:linear-gradient(135deg,#0d0b08,#0e0b0d)"></div>
+  <div style="position:relative;z-index:2;width:100%;height:100%;display:flex;padding:clamp(22px,3.5vw,48px);gap:clamp(20px,3vw,48px)">
+
+    <!-- 左：美术资源生产 -->
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+      <span class="chip chip-r a d1" style="margin-bottom:14px;width:fit-content">美术资源生产</span>
+      <h2 class="hdg a d2" style="font-size:clamp(20px,2.8vw,38px);margin-bottom:6px">全部图片由 AI 生成</h2>
+      <div class="rule a d3" style="margin-bottom:14px"></div>
+
+      <div class="a d3" style="display:flex;flex-direction:column;gap:9px">
+        <div style="padding:11px 14px;border-radius:10px;background:rgba(239,83,80,.08);border:1px solid rgba(239,83,80,.2);font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.8">
+          🎨 <b style="color:#ffb0a8">36张武将立绘</b>（cardart）— 现代二次元游戏风格，每位武将独立生成，统一古风配色
+        </div>
+        <div style="padding:11px 14px;border-radius:10px;background:rgba(232,184,75,.07);border:1px solid rgba(232,184,75,.2);font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.8">
+          🏔️ <b style="color:var(--gold)">13张历史场景图</b>（scenes）— 写实暗色油画风，赤壁、官渡、三顾茅庐等标志性场景
+        </div>
+        <div style="padding:11px 14px;border-radius:10px;background:rgba(76,175,80,.07);border:1px solid rgba(76,175,80,.2);font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.8">
+          🎭 <b style="color:#a8f0a8">36张 Q版头像</b>（characters）— chibi 贴纸风格，用于用户头像选择
+        </div>
+        <div style="padding:11px 14px;border-radius:10px;background:rgba(74,144,217,.07);border:1px solid rgba(74,144,217,.2);font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.8">
+          🗺️ <b style="color:#a8d4ff">背景 + 入口图</b>（8张入口 + 6张背景）— 史诗战场、抽卡传送门、大富翁地图等
+        </div>
+        <div style="padding:11px 14px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);font-size:clamp(10px,1.1vw,12px);color:var(--dim)">
+          📦 全部转换为 <b style="color:var(--cream)">webp 格式</b>压缩，保证移动端加载速度
+        </div>
+      </div>
+
+      <!-- 缩略图展示 -->
+      <div class="a d4" style="display:flex;gap:6px;margin-top:14px">
+        <div style="flex:1;aspect-ratio:2/3;border-radius:8px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.5)">
+          <img src="https://raw.githubusercontent.com/Harrisonford-ss/sanguo-game/main/images/cardart/guanyu.webp" alt="" style="width:100%;height:100%;object-fit:cover;object-position:top">
+        </div>
+        <div style="flex:1;aspect-ratio:2/3;border-radius:8px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.5)">
+          <img src="https://raw.githubusercontent.com/Harrisonford-ss/sanguo-game/main/images/cardart/zhugeliang.webp" alt="" style="width:100%;height:100%;object-fit:cover;object-position:top">
+        </div>
+        <div style="flex:1;aspect-ratio:2/3;border-radius:8px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.5)">
+          <img src="https://raw.githubusercontent.com/Harrisonford-ss/sanguo-game/main/images/cardart/lvbu.webp" alt="" style="width:100%;height:100%;object-fit:cover;object-position:top">
+        </div>
+        <div style="flex:1;aspect-ratio:2/3;border-radius:8px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.5)">
+          <img src="https://raw.githubusercontent.com/Harrisonford-ss/sanguo-game/main/images/cardart/liubei.webp" alt="" style="width:100%;height:100%;object-fit:cover;object-position:top">
+        </div>
+      </div>
+    </div>
+
+    <!-- 右：云端架构 -->
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+      <span class="chip chip-g a d2" style="margin-bottom:14px;width:fit-content">云端架构</span>
+      <h2 class="hdg a d2" style="font-size:clamp(20px,2.8vw,38px);margin-bottom:6px">Supabase + Zeabur</h2>
+      <div class="rule a d3" style="margin-bottom:14px"></div>
+
+      <!-- 数据库表 -->
+      <div class="a d3" style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+        <div style="font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:4px">🗄️ Supabase 数据库表设计</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div style="padding:10px 12px;border-radius:8px;background:rgba(62,207,142,.08);border:1px solid rgba(62,207,142,.2)">
+            <div style="font-size:10px;font-weight:700;color:#6ee7b7;margin-bottom:4px">sanguo_users</div>
+            <div style="font-size:9px;color:var(--muted);line-height:1.6">用户名 · 密码哈希<br>昵称 · 头像 · 登录时间</div>
+          </div>
+          <div style="padding:10px 12px;border-radius:8px;background:rgba(62,207,142,.08);border:1px solid rgba(62,207,142,.2)">
+            <div style="font-size:10px;font-weight:700;color:#6ee7b7;margin-bottom:4px">sanguo_saves</div>
+            <div style="font-size:9px;color:var(--muted);line-height:1.6">完整存档 JSON<br>战力快照 · 更新时间</div>
+          </div>
+          <div style="padding:10px 12px;border-radius:8px;background:rgba(62,207,142,.08);border:1px solid rgba(62,207,142,.2)">
+            <div style="font-size:10px;font-weight:700;color:#6ee7b7;margin-bottom:4px">sanguo_leaderboard</div>
+            <div style="font-size:9px;color:var(--muted);line-height:1.6">战力 · 卡数 · 胜场<br>探险楼层 · 大富翁分</div>
+          </div>
+          <div style="padding:10px 12px;border-radius:8px;background:rgba(62,207,142,.08);border:1px solid rgba(62,207,142,.2)">
+            <div style="font-size:10px;font-weight:700;color:#6ee7b7;margin-bottom:4px">sanguo_arena</div>
+            <div style="font-size:9px;color:var(--muted);line-height:1.6">擂台队伍配置<br>战斗日志记录</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 部署流程 -->
+      <div class="a d4" style="padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)">
+        <div style="font-size:11px;color:var(--muted);letter-spacing:1px;margin-bottom:10px">🚀 部署流程</div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <div style="padding:7px 12px;border-radius:8px;background:rgba(255,255,255,.06);font-size:clamp(10px,1.1vw,12px);color:var(--dim)">本地开发</div>
+          <div style="color:var(--gold);font-size:14px">→</div>
+          <div style="padding:7px 12px;border-radius:8px;background:rgba(255,255,255,.06);font-size:clamp(10px,1.1vw,12px);color:var(--dim)">git push</div>
+          <div style="color:var(--gold);font-size:14px">→</div>
+          <div style="padding:7px 12px;border-radius:8px;background:rgba(76,175,80,.12);border:1px solid rgba(76,175,80,.3);font-size:clamp(10px,1.1vw,12px);color:#a8f0a8">GitHub</div>
+          <div style="color:var(--gold);font-size:14px">→</div>
+          <div style="padding:7px 12px;border-radius:8px;background:rgba(74,144,217,.12);border:1px solid rgba(74,144,217,.3);font-size:clamp(10px,1.1vw,12px);color:#a8d4ff">Zeabur 自动部署</div>
+          <div style="color:var(--gold);font-size:14px">→</div>
+          <div style="padding:7px 12px;border-radius:8px;background:rgba(232,184,75,.12);border:1px solid rgba(232,184,75,.3);font-size:clamp(10px,1.1vw,12px);color:var(--gold)">✅ 上线</div>
+        </div>
+        <div style="margin-top:10px;font-size:clamp(10px,1.1vw,12px);color:var(--muted)">
+          全程无需手动操作服务器，push 代码即完成发布
+        </div>
       </div>
     </div>
   </div>
