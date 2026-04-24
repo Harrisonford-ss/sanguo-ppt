@@ -892,42 +892,60 @@ body{height:100%;font-family:'Noto Sans SC',sans-serif;overflow-x:hidden;backgro
     <h2 class="hdg a d2" style="text-align:center;margin-bottom:6px">踩过的坑，学到的东西</h2>
     <div class="rule a d3" style="margin:12px auto 24px"></div>
 
-    <div class="a d3" style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;max-width:900px">
+    <div class="a d3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;max-width:960px">
 
-      <div style="padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-          <div style="width:36px;height:36px;border-radius:9px;background:rgba(239,83,80,.15);border:1px solid rgba(239,83,80,.3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🗄️</div>
-          <div style="font-size:clamp(12px,1.4vw,15px);color:var(--cream);font-weight:700">无框架状态管理</div>
+      <div style="padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:9px">
+          <div style="width:34px;height:34px;border-radius:9px;background:rgba(239,83,80,.15);border:1px solid rgba(239,83,80,.3);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">🗄️</div>
+          <div style="font-size:clamp(11px,1.3vw,14px);color:var(--cream);font-weight:700">无框架状态管理</div>
         </div>
-        <div style="font-size:clamp(10px,1.1vw,12px);color:#ffb0a8;margin-bottom:6px">挑战：模块间数据同步混乱，各处重复读写 localStorage</div>
-        <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.7">→ 设计统一的 <b style="color:var(--cream)">gameState</b> 对象，发布订阅模式<br>→ 所有模块通过事件通信，状态单一来源</div>
+        <div style="font-size:clamp(10px,1vw,11px);color:#ffb0a8;margin-bottom:6px">挑战：模块间数据同步混乱，各处重复读写 localStorage</div>
+        <div style="font-size:clamp(10px,1vw,11px);color:var(--dim);line-height:1.7">→ 设计统一的 <b style="color:var(--cream)">gameState</b> 对象 + 发布订阅<br>→ 所有模块通过事件通信，状态单一来源</div>
       </div>
 
-      <div style="padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-          <div style="width:36px;height:36px;border-radius:9px;background:rgba(232,184,75,.12);border:1px solid rgba(232,184,75,.3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">☁️</div>
-          <div style="font-size:clamp(12px,1.4vw,15px);color:var(--cream);font-weight:700">云存档冲突</div>
+      <div style="padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:9px">
+          <div style="width:34px;height:34px;border-radius:9px;background:rgba(232,184,75,.12);border:1px solid rgba(232,184,75,.3);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">☁️</div>
+          <div style="font-size:clamp(11px,1.3vw,14px);color:var(--cream);font-weight:700">云存档冲突</div>
         </div>
-        <div style="font-size:clamp(10px,1.1vw,12px);color:#ffb0a8;margin-bottom:6px">挑战：多设备登录时本地存档与云端存档互相覆盖</div>
-        <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.7">→ 基于 <b style="color:var(--cream)">updated_at 时间戳</b> 判断新旧<br>→ 云端更新才覆盖本地，否则上传云端</div>
+        <div style="font-size:clamp(10px,1vw,11px);color:#ffb0a8;margin-bottom:6px">挑战：多设备登录时本地与云端存档互相覆盖</div>
+        <div style="font-size:clamp(10px,1vw,11px);color:var(--dim);line-height:1.7">→ 基于 <b style="color:var(--cream)">updated_at 时间戳</b> 判断新旧<br>→ 云端更新才覆盖本地，否则上传云端</div>
       </div>
 
-      <div style="padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-          <div style="width:36px;height:36px;border-radius:9px;background:rgba(124,77,255,.15);border:1px solid rgba(124,77,255,.3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🎲</div>
-          <div style="font-size:clamp(12px,1.4vw,15px);color:var(--cream);font-weight:700">大富翁路径分叉</div>
+      <div style="padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:9px">
+          <div style="width:34px;height:34px;border-radius:9px;background:rgba(124,77,255,.15);border:1px solid rgba(124,77,255,.3);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">🎲</div>
+          <div style="font-size:clamp(11px,1.3vw,14px);color:var(--cream);font-weight:700">大富翁路径分叉</div>
         </div>
-        <div style="font-size:clamp(10px,1.1vw,12px);color:#ffb0a8;margin-bottom:6px">挑战：66格棋盘有4个分叉口，图结构路径计算复杂</div>
-        <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.7">→ 每格存储 <b style="color:var(--cream)">next[]数组</b>，分叉口随机选路<br>→ AI 玩家用贪心算法评估城市价值</div>
+        <div style="font-size:clamp(10px,1vw,11px);color:#ffb0a8;margin-bottom:6px">挑战：66格棋盘有4个分叉口，图结构路径计算复杂</div>
+        <div style="font-size:clamp(10px,1vw,11px);color:var(--dim);line-height:1.7">→ 每格存储 <b style="color:var(--cream)">next[]数组</b>，分叉口随机选路<br>→ AI 玩家用贪心算法评估城市价值</div>
       </div>
 
-      <div style="padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-          <div style="width:36px;height:36px;border-radius:9px;background:rgba(76,175,80,.12);border:1px solid rgba(76,175,80,.3);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">⚖️</div>
-          <div style="font-size:clamp(12px,1.4vw,15px);color:var(--cream);font-weight:700">战力数值平衡</div>
+      <div style="padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:9px">
+          <div style="width:34px;height:34px;border-radius:9px;background:rgba(76,175,80,.12);border:1px solid rgba(76,175,80,.3);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">⚖️</div>
+          <div style="font-size:clamp(11px,1.3vw,14px);color:var(--cream);font-weight:700">战力数值平衡</div>
         </div>
-        <div style="font-size:clamp(10px,1.1vw,12px);color:#ffb0a8;margin-bottom:6px">挑战：武将等级差距过大导致低等级玩家体验极差</div>
-        <div style="font-size:clamp(10px,1.1vw,12px);color:var(--dim);line-height:1.7">→ 传说仅比普通强 <b style="color:var(--cream)">35%</b>，等级最多提升 80%<br>→ 战力公式统一，避免数值膨胀</div>
+        <div style="font-size:clamp(10px,1vw,11px);color:#ffb0a8;margin-bottom:6px">挑战：武将等级差异过大导致低分段玩家体验极差</div>
+        <div style="font-size:clamp(10px,1vw,11px);color:var(--dim);line-height:1.7">→ 传说仅比普通强 <b style="color:var(--cream)">35%</b>，等级最多提升 80%<br>→ 战力公式统一整数运算，避免数值膨胀</div>
+      </div>
+
+      <div style="padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:9px">
+          <div style="width:34px;height:34px;border-radius:9px;background:rgba(74,144,217,.15);border:1px solid rgba(74,144,217,.3);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">📱</div>
+          <div style="font-size:clamp(11px,1.3vw,14px);color:var(--cream);font-weight:700">移动端适配</div>
+        </div>
+        <div style="font-size:clamp(10px,1vw,11px);color:#ffb0a8;margin-bottom:6px">挑战：iOS 底栏遮挡、安全区不一致、键盘弹出布局错乱</div>
+        <div style="font-size:clamp(10px,1vw,11px);color:var(--dim);line-height:1.7">→ 用 <b style="color:var(--cream)">safe-area-inset</b> + dvh 动态视口单位<br>→ Tab 栏自身吸收底部安全区，不依赖 body padding</div>
+      </div>
+
+      <div style="padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:9px">
+          <div style="width:34px;height:34px;border-radius:9px;background:rgba(255,152,0,.12);border:1px solid rgba(255,152,0,.3);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0">🔒</div>
+          <div style="font-size:clamp(11px,1.3vw,14px);color:var(--cream);font-weight:700">无后端的安全鉴权</div>
+        </div>
+        <div style="font-size:clamp(10px,1vw,11px);color:#ffb0a8;margin-bottom:6px">挑战：纯前端项目，密码不能明文存，也没有服务端可用</div>
+        <div style="font-size:clamp(10px,1vw,11px);color:var(--dim);line-height:1.7">→ 纯 JS 实现 <b style="color:var(--cream)">MurmurHash</b> 加盐哈希<br>→ Supabase Row Level Policy 限制数据访问权限</div>
       </div>
 
     </div>
