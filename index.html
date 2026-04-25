@@ -568,57 +568,60 @@ body{height:100%;font-family:'Noto Sans SC',sans-serif;overflow-x:hidden;backgro
     </div>
   </div>
 
-  <div class="half-r" style="z-index:2;align-items:center;justify-content:center">
-    <div style="display:flex;align-items:center;gap:clamp(6px,1vw,14px);width:100%;max-width:520px">
+  <div class="half-r" style="z-index:2;align-items:center;justify-content:center;padding-right:clamp(20px,3vw,40px)">
+    <div style="display:flex;align-items:center;gap:clamp(10px,1.5vw,20px);height:86%">
 
-      <!-- 左队 3张 -->
-      <div style="display:flex;gap:clamp(4px,.7vw,8px);flex:1">
-        <div class="char-card a d2" style="--an:sl;flex:1;aspect-ratio:2/3;box-shadow:0 0 0 2px #e8b84b,0 12px 36px rgba(232,184,75,.35)">
+      <!-- 左队：3张竖排 -->
+      <div style="display:flex;flex-direction:column;gap:clamp(6px,1vw,10px);height:100%">
+        <div class="char-card a d2" style="--an:sl;flex:1;width:clamp(90px,10vw,130px);box-shadow:0 0 0 2px #e8b84b,0 12px 40px rgba(232,184,75,.4)">
           <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/caocao.webp" alt="曹操">
           <div class="foot">
-            <div style="font-size:8px;color:#a8d4ff">魏 · 传说</div>
+            <div style="font-size:9px;color:#a8d4ff">魏 · 传说</div>
             <div class="cname">曹操</div>
           </div>
         </div>
-        <div class="char-card a d3" style="--an:sl;flex:1;aspect-ratio:2/3;box-shadow:0 0 0 2px #e8b84b,0 12px 36px rgba(232,184,75,.35)">
+        <div class="char-card a d3" style="--an:sl;flex:1;width:clamp(90px,10vw,130px);box-shadow:0 0 0 2px #e8b84b,0 12px 40px rgba(232,184,75,.4)">
           <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/simayi.webp" alt="司马懿">
           <div class="foot">
-            <div style="font-size:8px;color:#a8d4ff">魏 · 传说</div>
+            <div style="font-size:9px;color:#a8d4ff">魏 · 传说</div>
             <div class="cname">司马懿</div>
           </div>
         </div>
-        <div class="char-card a d4" style="--an:sl;flex:1;aspect-ratio:2/3;box-shadow:0 0 0 2px #e8b84b,0 12px 36px rgba(232,184,75,.35)">
+        <div class="char-card a d4" style="--an:sl;flex:1;width:clamp(90px,10vw,130px);box-shadow:0 0 0 2px #e8b84b,0 12px 40px rgba(232,184,75,.4)">
           <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/lvbu.webp" alt="吕布">
           <div class="foot">
-            <div style="font-size:8px;color:#ffda8a">群 · 传说</div>
+            <div style="font-size:9px;color:#ffda8a">群 · 传说</div>
             <div class="cname">吕布</div>
           </div>
         </div>
       </div>
 
       <!-- VS -->
-      <div class="a d3" style="--an:sc;font-family:var(--ff-t);font-size:clamp(22px,3vw,40px);color:var(--gold);text-shadow:0 0 24px rgba(232,184,75,.7);flex-shrink:0;line-height:1">VS</div>
+      <div class="a d3" style="--an:sc;display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0">
+        <div style="font-family:var(--ff-t);font-size:clamp(24px,3.5vw,46px);color:var(--gold);text-shadow:0 0 30px rgba(232,184,75,.8);line-height:1">VS</div>
+        <div style="width:1px;height:clamp(40px,6vh,70px);background:linear-gradient(180deg,rgba(232,184,75,.6),transparent)"></div>
+      </div>
 
-      <!-- 右队 3张 -->
-      <div style="display:flex;gap:clamp(4px,.7vw,8px);flex:1">
-        <div class="char-card a d2" style="--an:sr;flex:1;aspect-ratio:2/3;box-shadow:0 0 0 2px #e8b84b,0 12px 36px rgba(232,184,75,.35)">
+      <!-- 右队：3张竖排 -->
+      <div style="display:flex;flex-direction:column;gap:clamp(6px,1vw,10px);height:100%">
+        <div class="char-card a d2" style="--an:sr;flex:1;width:clamp(90px,10vw,130px);box-shadow:0 0 0 2px #e8b84b,0 12px 40px rgba(232,184,75,.4)">
           <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/zhugeliang.webp" alt="诸葛亮">
           <div class="foot">
-            <div style="font-size:8px;color:#a8f0a8">蜀 · 传说</div>
+            <div style="font-size:9px;color:#a8f0a8">蜀 · 传说</div>
             <div class="cname">诸葛亮</div>
           </div>
         </div>
-        <div class="char-card a d3" style="--an:sr;flex:1;aspect-ratio:2/3;box-shadow:0 0 0 2px #e8b84b,0 12px 36px rgba(232,184,75,.35)">
+        <div class="char-card a d3" style="--an:sr;flex:1;width:clamp(90px,10vw,130px);box-shadow:0 0 0 2px #e8b84b,0 12px 40px rgba(232,184,75,.4)">
           <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/guanyu.webp" alt="关羽">
           <div class="foot">
-            <div style="font-size:8px;color:#a8f0a8">蜀 · 传说</div>
+            <div style="font-size:9px;color:#a8f0a8">蜀 · 传说</div>
             <div class="cname">关羽</div>
           </div>
         </div>
-        <div class="char-card a d4" style="--an:sr;flex:1;aspect-ratio:2/3;box-shadow:0 0 0 2px #e8b84b,0 12px 36px rgba(232,184,75,.35)">
+        <div class="char-card a d4" style="--an:sr;flex:1;width:clamp(90px,10vw,130px);box-shadow:0 0 0 2px #e8b84b,0 12px 40px rgba(232,184,75,.4)">
           <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/zhouyu.webp" alt="周瑜">
           <div class="foot">
-            <div style="font-size:8px;color:#ffb0a8">吴 · 传说</div>
+            <div style="font-size:9px;color:#ffb0a8">吴 · 传说</div>
             <div class="cname">周瑜</div>
           </div>
         </div>
