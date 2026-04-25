@@ -347,54 +347,81 @@ body{height:100%;font-family:'Noto Sans SC',sans-serif;overflow-x:hidden;backgro
     </div>
   </div>
 
-  <!-- 右侧：36张卡牌瀑布流 -->
-  <div style="position:absolute;right:0;top:0;bottom:0;width:54%;z-index:2;overflow:hidden;display:flex;align-items:center">
-    <div class="a d2" style="--an:sr;display:grid;grid-template-columns:repeat(9,1fr);gap:4px;padding:clamp(12px,2vw,24px);width:100%">
-      <!-- 传说 7人 (金边) -->
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(232,184,75,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/zhugeliang.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:var(--gold);text-align:center">诸葛亮</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(232,184,75,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/caocao.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:var(--gold);text-align:center">曹操</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(232,184,75,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/guanyu.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:var(--gold);text-align:center">关羽</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(232,184,75,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/liubei.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:var(--gold);text-align:center">刘备</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(232,184,75,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/zhaoyun.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:var(--gold);text-align:center">赵云</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(232,184,75,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/lvbu.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:var(--gold);text-align:center">吕布</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(232,184,75,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/simayi.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:var(--gold);text-align:center">司马懿</div></div>
-      <!-- 稀有 15人 (紫边) -->
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(124,77,255,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/zhangliao.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#c8aaff;text-align:center">张辽</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(124,77,255,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/zhouyu.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#c8aaff;text-align:center">周瑜</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(124,77,255,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/machao.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#c8aaff;text-align:center">马超</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(124,77,255,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/sunquan.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#c8aaff;text-align:center">孙权</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(124,77,255,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/huangzhong.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#c8aaff;text-align:center">黄忠</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(124,77,255,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/luxun.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#c8aaff;text-align:center">陆逊</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(124,77,255,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/diaochan.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#c8aaff;text-align:center">貂蝉</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(124,77,255,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/jiangwei.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#c8aaff;text-align:center">姜维</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(124,77,255,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/zhangfei.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#c8aaff;text-align:center">张飞</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(124,77,255,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/sunce.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#c8aaff;text-align:center">孙策</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(124,77,255,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/ganning.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#c8aaff;text-align:center">甘宁</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(124,77,255,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/dianwei.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#c8aaff;text-align:center">典韦</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(124,77,255,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/xiahoudun.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#c8aaff;text-align:center">夏侯惇</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(124,77,255,.8);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/lvmeng.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#c8aaff;text-align:center">吕蒙</div></div>
-      <!-- 普通 14人 (绿边) -->
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(102,187,106,.7);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/xunyu.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#a8f0a8;text-align:center">荀彧</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(102,187,106,.7);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/lusu.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#a8f0a8;text-align:center">鲁肃</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(102,187,106,.7);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/weiyan.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#a8f0a8;text-align:center">魏延</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(102,187,106,.7);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/huanggai.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#a8f0a8;text-align:center">黄盖</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(102,187,106,.7);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/taishici.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#a8f0a8;text-align:center">太史慈</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(102,187,106,.7);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/zhanghe.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#a8f0a8;text-align:center">张郃</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(102,187,106,.7);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/xuchu.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#a8f0a8;text-align:center">许褚</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(102,187,106,.7);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/zhoutai.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#a8f0a8;text-align:center">周泰</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(102,187,106,.7);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/guojia.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#a8f0a8;text-align:center">郭嘉</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(102,187,106,.7);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/fazheng.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#a8f0a8;text-align:center">法正</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(102,187,106,.7);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/jiaxu.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#a8f0a8;text-align:center">贾诩</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(102,187,106,.7);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/huatuo.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#a8f0a8;text-align:center">华佗</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(102,187,106,.7);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/yuanshao.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#a8f0a8;text-align:center">袁绍</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(102,187,106,.7);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/dongzhuo.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#a8f0a8;text-align:center">董卓</div></div>
-      <div style="position:relative;border-radius:6px;overflow:hidden;border:1.5px solid rgba(102,187,106,.7);aspect-ratio:3/4"><img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/zhangxiu.webp" style="width:100%;height:100%;object-fit:cover;object-position:top"><div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:2px 3px;font-size:6px;color:#a8f0a8;text-align:center">张绣</div></div>
-    </div>
-    <!-- 图例 -->
-    <div style="position:absolute;bottom:12px;right:16px;display:flex;gap:10px;z-index:3">
-      <span style="font-size:9px;color:var(--gold)">▪ 传说</span>
-      <span style="font-size:9px;color:#c8aaff">▪ 稀有</span>
-      <span style="font-size:9px;color:#a8f0a8">▪ 普通</span>
+  <!-- 右侧：7位传说武将大图展示 -->
+  <div style="position:absolute;right:0;top:0;bottom:0;width:56%;z-index:2;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:clamp(16px,2.5vw,36px)">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr);gap:10px;width:100%;height:88%">
+
+      <!-- 第一行：4张，中间那张更高作主角 -->
+      <div class="a d2" style="--an:sr;position:relative;border-radius:12px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 20px rgba(232,184,75,.3)">
+        <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/zhugeliang.webp" style="width:100%;height:100%;object-fit:cover;object-position:top">
+        <div style="position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.85))"></div>
+        <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center">
+          <div style="font-size:8px;color:var(--gold);letter-spacing:1px">★★★ 传说</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(11px,1.3vw,16px);color:#fff">诸葛亮</div>
+        </div>
+      </div>
+
+      <div class="a d3" style="--an:sr;position:relative;border-radius:12px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 20px rgba(232,184,75,.3)">
+        <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/caocao.webp" style="width:100%;height:100%;object-fit:cover;object-position:top">
+        <div style="position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.85))"></div>
+        <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center">
+          <div style="font-size:8px;color:var(--gold);letter-spacing:1px">★★★ 传说</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(11px,1.3vw,16px);color:#fff">曹操</div>
+        </div>
+      </div>
+
+      <div class="a d2" style="--an:sr;position:relative;border-radius:12px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 20px rgba(232,184,75,.3)">
+        <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/guanyu.webp" style="width:100%;height:100%;object-fit:cover;object-position:top">
+        <div style="position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.85))"></div>
+        <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center">
+          <div style="font-size:8px;color:var(--gold);letter-spacing:1px">★★★ 传说</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(11px,1.3vw,16px);color:#fff">关羽</div>
+        </div>
+      </div>
+
+      <div class="a d3" style="--an:sr;position:relative;border-radius:12px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 20px rgba(232,184,75,.3)">
+        <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/liubei.webp" style="width:100%;height:100%;object-fit:cover;object-position:top">
+        <div style="position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.85))"></div>
+        <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center">
+          <div style="font-size:8px;color:var(--gold);letter-spacing:1px">★★★ 传说</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(11px,1.3vw,16px);color:#fff">刘备</div>
+        </div>
+      </div>
+
+      <!-- 第二行：3张居中 + 空位 -->
+      <div class="a d4" style="--an:sr;position:relative;border-radius:12px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 20px rgba(232,184,75,.3)">
+        <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/zhaoyun.webp" style="width:100%;height:100%;object-fit:cover;object-position:top">
+        <div style="position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.85))"></div>
+        <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center">
+          <div style="font-size:8px;color:var(--gold);letter-spacing:1px">★★★ 传说</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(11px,1.3vw,16px);color:#fff">赵云</div>
+        </div>
+      </div>
+
+      <div class="a d5" style="--an:sr;position:relative;border-radius:12px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 20px rgba(232,184,75,.3)">
+        <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/lvbu.webp" style="width:100%;height:100%;object-fit:cover;object-position:top">
+        <div style="position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.85))"></div>
+        <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center">
+          <div style="font-size:8px;color:var(--gold);letter-spacing:1px">★★★ 传说</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(11px,1.3vw,16px);color:#fff">吕布</div>
+        </div>
+      </div>
+
+      <div class="a d4" style="--an:sr;position:relative;border-radius:12px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 20px rgba(232,184,75,.3)">
+        <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/simayi.webp" style="width:100%;height:100%;object-fit:cover;object-position:top">
+        <div style="position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.85))"></div>
+        <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center">
+          <div style="font-size:8px;color:var(--gold);letter-spacing:1px">★★★ 传说</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(11px,1.3vw,16px);color:#fff">司马懿</div>
+        </div>
+      </div>
+
+      <!-- 第7格：标注总数 -->
+      <div class="a d5" style="--an:sr;border-radius:12px;border:2px dashed rgba(232,184,75,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:rgba(232,184,75,.05)">
+        <div style="font-family:var(--ff-t);font-size:clamp(22px,3vw,40px);color:var(--gold)">36</div>
+        <div style="font-size:clamp(9px,1vw,12px);color:var(--muted);text-align:center;line-height:1.6">位英雄<br>传说 · 稀有 · 普通</div>
+      </div>
+
     </div>
   </div>
 </section>
