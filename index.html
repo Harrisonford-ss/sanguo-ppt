@@ -496,23 +496,27 @@ body{height:100%;font-family:'Noto Sans SC',sans-serif;overflow-x:hidden;backgro
     </div>
   </div>
 
-  <div class="half-r" style="z-index:2;flex-direction:row;gap:12px;align-items:center;justify-content:center;padding-right:clamp(24px,4vw,48px)">
+  <div class="half-r" style="z-index:2;flex-direction:row;gap:clamp(12px,2vw,24px);align-items:center;justify-content:center;padding-right:clamp(24px,4vw,48px)">
 
     <!-- 大富翁截图 -->
-    <div class="a d3" style="--an:sr;flex:1;display:flex;flex-direction:column;align-items:center">
-      <div style="font-size:10px;color:var(--muted);margin-bottom:7px;letter-spacing:1px">三国大富翁</div>
-      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(239,83,80,.35);box-shadow:0 8px 32px rgba(0,0,0,.6);position:relative;max-width:200px;width:100%">
-        <img src="monopoly_ui.webp" alt="三国大富翁游戏界面"
-          style="width:100%;display:block;border-radius:14px">
+    <div class="a d3" style="--an:sl;display:flex;flex-direction:column;align-items:center;gap:10px">
+      <div style="display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;background:rgba(239,83,80,.15);border:1px solid rgba(239,83,80,.4)">
+        <span style="font-size:11px">🎲</span>
+        <span style="font-size:11px;color:#ffb0a8;font-weight:600;letter-spacing:.5px">三国大富翁</span>
+      </div>
+      <div style="border-radius:20px;overflow:hidden;border:1.5px solid rgba(239,83,80,.5);box-shadow:0 16px 48px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.05);width:clamp(150px,17vw,220px)">
+        <img src="monopoly_ui.webp" alt="三国大富翁游戏界面" style="width:100%;display:block">
       </div>
     </div>
 
     <!-- 探险截图 -->
-    <div class="a d4" style="--an:sr;flex:1;display:flex;flex-direction:column;align-items:center">
-      <div style="font-size:10px;color:var(--muted);margin-bottom:7px;letter-spacing:1px">乱世探险</div>
-      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(124,77,255,.35);box-shadow:0 8px 32px rgba(0,0,0,.6);position:relative;max-width:200px;width:100%">
-        <img src="dungeon_ui.webp" alt="乱世探险游戏界面"
-          style="width:100%;display:block;border-radius:14px">
+    <div class="a d4" style="--an:sr;display:flex;flex-direction:column;align-items:center;gap:10px">
+      <div style="display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;background:rgba(124,77,255,.15);border:1px solid rgba(124,77,255,.4)">
+        <span style="font-size:11px">⚔️</span>
+        <span style="font-size:11px;color:#c4a8ff;font-weight:600;letter-spacing:.5px">乱世探险</span>
+      </div>
+      <div style="border-radius:20px;overflow:hidden;border:1.5px solid rgba(124,77,255,.5);box-shadow:0 16px 48px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.05);width:clamp(150px,17vw,220px)">
+        <img src="dungeon_ui.webp" alt="乱世探险游戏界面" style="width:100%;display:block">
       </div>
     </div>
 
