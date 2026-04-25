@@ -229,33 +229,84 @@ body{height:100%;font-family:'Noto Sans SC',sans-serif;overflow-x:hidden;backgro
     <div class="rule a d3"></div>
     <div class="sub a d3" style="margin-bottom:20px">六个玩法模块环环相扣<br>每一步操作都与其他模块产生连接</div>
 
-    <!-- 经济循环流程图 -->
-    <div class="a d4" style="display:flex;flex-direction:column;gap:0">
-      <div style="padding:10px 14px;border-radius:10px;background:rgba(239,83,80,.12);border:1px solid rgba(239,83,80,.3);font-size:clamp(11px,1.2vw,13px)">
-        <span style="color:#ffb0a8;font-weight:700">⚔️ 关卡 / 擂台</span>
-        <span style="color:var(--muted);margin-left:8px">→ 获得答题积分</span>
+    <!-- 经济循环流程图（正确版） -->
+    <div class="a d4" style="font-size:clamp(10px,1.1vw,12px)">
+
+      <!-- 第一层：4个玩法入口 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px">
+        <div style="padding:7px 10px;border-radius:8px;background:rgba(239,83,80,.12);border:1px solid rgba(239,83,80,.35)">
+          <div style="color:#ffb0a8;font-weight:700;margin-bottom:2px">⚔️ 闯关</div>
+          <div style="color:var(--muted)">→ 答题积分</div>
+        </div>
+        <div style="padding:7px 10px;border-radius:8px;background:rgba(232,184,75,.1);border:1px solid rgba(232,184,75,.35)">
+          <div style="color:var(--gold);font-weight:700;margin-bottom:2px">📜 答题</div>
+          <div style="color:var(--muted)">→ 抽卡积分</div>
+        </div>
+        <div style="padding:7px 10px;border-radius:8px;background:rgba(74,144,217,.1);border:1px solid rgba(74,144,217,.35)">
+          <div style="color:#a8d4ff;font-weight:700;margin-bottom:2px">🗺️ 探险</div>
+          <div style="color:var(--muted)">→ 金币 + 抽卡积分</div>
+        </div>
+        <div style="padding:7px 10px;border-radius:8px;background:rgba(76,175,80,.1);border:1px solid rgba(76,175,80,.35)">
+          <div style="color:#a8f0a8;font-weight:700;margin-bottom:2px">🎲 大富翁</div>
+          <div style="color:var(--muted)">→ 金币</div>
+        </div>
       </div>
-      <div class="arrow" style="padding:4px 0">↓</div>
-      <div style="padding:10px 14px;border-radius:10px;background:rgba(232,184,75,.1);border:1px solid rgba(232,184,75,.3);font-size:clamp(11px,1.2vw,13px)">
-        <span style="color:var(--gold);font-weight:700">📜 答题系统</span>
-        <span style="color:var(--muted);margin-left:8px">→ 消耗积分，赚取抽卡币</span>
+
+      <!-- 箭头 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;text-align:center;color:rgba(232,184,75,.5);padding:2px 0">
+        <div>↓</div><div>↓</div>
       </div>
-      <div class="arrow" style="padding:4px 0">↓</div>
-      <div style="padding:10px 14px;border-radius:10px;background:rgba(124,77,255,.12);border:1px solid rgba(124,77,255,.3);font-size:clamp(11px,1.2vw,13px)">
-        <span style="color:#b39dff;font-weight:700">✨ 抽卡系统</span>
-        <span style="color:var(--muted);margin-left:8px">→ 获得武将 / 碎片</span>
+
+      <!-- 第二层：两种货币 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px">
+        <div style="padding:8px 10px;border-radius:8px;background:rgba(124,77,255,.14);border:1px solid rgba(124,77,255,.4);text-align:center">
+          <div style="font-size:15px;margin-bottom:3px">💎</div>
+          <div style="color:#b39dff;font-weight:700">抽卡积分</div>
+          <div style="color:var(--muted);font-size:9px;margin-top:2px">用于抽取武将</div>
+        </div>
+        <div style="padding:8px 10px;border-radius:8px;background:rgba(232,184,75,.1);border:1px solid rgba(232,184,75,.35);text-align:center">
+          <div style="font-size:15px;margin-bottom:3px">🪙</div>
+          <div style="color:var(--gold);font-weight:700">金币</div>
+          <div style="color:var(--muted);font-size:9px;margin-top:2px">用于升级武将</div>
+        </div>
       </div>
-      <div class="arrow" style="padding:4px 0">↓</div>
-      <div style="padding:10px 14px;border-radius:10px;background:rgba(76,175,80,.1);border:1px solid rgba(76,175,80,.25);font-size:clamp(11px,1.2vw,13px)">
-        <span style="color:#a8f0a8;font-weight:700">👥 武将升级</span>
-        <span style="color:var(--muted);margin-left:8px">→ 消耗金币+碎片，战力↑</span>
+
+      <!-- 箭头 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;text-align:center;color:rgba(232,184,75,.5);padding:2px 0">
+        <div>↓</div><div>↓</div>
       </div>
-      <div class="arrow" style="padding:4px 0">↓</div>
-      <div style="padding:10px 14px;border-radius:10px;background:rgba(232,184,75,.08);border:1px solid rgba(232,184,75,.2);font-size:clamp(11px,1.2vw,13px)">
-        <span style="color:var(--gold);font-weight:700">🏆 更强的对战能力</span>
-        <span style="color:var(--muted);margin-left:8px">→ 循环往复</span>
+
+      <!-- 第三层：抽卡 + 升级（合流） -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:4px">
+        <div style="padding:7px 10px;border-radius:8px;background:rgba(124,77,255,.12);border:1px solid rgba(124,77,255,.35)">
+          <div style="color:#b39dff;font-weight:700;margin-bottom:2px">✨ 抽卡</div>
+          <div style="color:var(--muted)">→ 获得武将/碎片</div>
+        </div>
+        <div style="padding:7px 10px;border-radius:8px;background:rgba(232,184,75,.1);border:1px solid rgba(232,184,75,.3)">
+          <div style="color:var(--gold);font-weight:700;margin-bottom:2px">👥 升级武将</div>
+          <div style="color:var(--muted)">金币 + 碎片</div>
+        </div>
       </div>
-      <div class="arrow" style="padding:4px 0">↑ <span style="font-size:10px;color:var(--muted)">大富翁/探险/签到 额外注入金币</span></div>
+
+      <!-- 合流箭头 -->
+      <div style="text-align:center;color:rgba(232,184,75,.5);padding:2px 0">↓</div>
+
+      <!-- 第四层：战力提升 -->
+      <div style="padding:9px 14px;border-radius:10px;background:linear-gradient(135deg,rgba(232,184,75,.15),rgba(239,83,80,.1));border:1px solid rgba(232,184,75,.45);text-align:center;margin-bottom:4px">
+        <span style="color:var(--gold);font-weight:700;font-size:clamp(11px,1.3vw,14px)">⚡ 武将战力↑</span>
+        <span style="color:var(--dim);margin-left:8px;font-size:10px">闯关 / 探险更轻松</span>
+      </div>
+
+      <!-- 箭头 -->
+      <div style="text-align:center;color:rgba(232,184,75,.5);padding:2px 0">↓</div>
+
+      <!-- 第五层：PK + 排行榜 -->
+      <div style="padding:9px 14px;border-radius:10px;background:linear-gradient(135deg,rgba(239,83,80,.15),rgba(232,184,75,.1));border:1px solid rgba(239,83,80,.45);display:flex;align-items:center;justify-content:center;gap:10px">
+        <span style="color:#ffb0a8;font-weight:700">⚔️ 玩家PK</span>
+        <span style="color:rgba(232,184,75,.4)">→</span>
+        <span style="color:var(--gold);font-weight:700">🏆 排行榜巅峰</span>
+      </div>
+
     </div>
   </div>
 
