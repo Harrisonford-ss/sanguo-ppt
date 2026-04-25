@@ -124,45 +124,58 @@ body{height:100%;font-family:'Noto Sans SC',sans-serif;overflow-x:hidden;backgro
   <img class="imgbg a" style="--an:fi;filter:brightness(.22) saturate(.5)" src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/scenes/longzhong.webp" alt="">
   <div class="ov" style="background:linear-gradient(135deg,rgba(13,11,8,.95) 45%,rgba(13,11,8,.65) 100%)"></div>
 
-  <div class="half-l" style="z-index:2;max-width:500px">
-    <span class="chip chip-r a d1" style="margin-bottom:16px;width:fit-content">起点</span>
-    <h2 class="hdg a d2">我为什么<br>要做这个游戏？</h2>
-    <div class="rule a d3"></div>
-    <div style="display:flex;flex-direction:column;gap:14px;margin-top:4px">
-      <div class="a d3" style="display:flex;gap:14px;align-items:flex-start">
-        <div style="width:42px;height:42px;border-radius:12px;background:rgba(232,184,75,.12);border:1px solid rgba(232,184,75,.3);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">📖</div>
-        <div>
-          <div style="font-size:clamp(12px,1.4vw,15px);color:var(--cream);font-weight:600;margin-bottom:4px">我最近特别迷三国</div>
-          <div class="sub">刘备、曹操、诸葛亮……这些人太有意思了！我自己越读越上头，就想让身边的朋友也一起了解</div>
+  <div class="half-l" style="z-index:2;max-width:520px">
+    <span class="chip chip-r a d1" style="margin-bottom:20px;width:fit-content">起点</span>
+    <h2 class="hdg a d2" style="font-size:clamp(28px,4vw,52px);line-height:1.15;margin-bottom:10px">我为什么<br>要做这个游戏？</h2>
+    <div class="rule a d3" style="margin-bottom:24px"></div>
+
+    <!-- 三段故事：编号大字 + 内容 -->
+    <div style="display:flex;flex-direction:column;gap:18px">
+
+      <div class="a d3" style="display:flex;gap:16px;align-items:center">
+        <div style="font-family:var(--ff-t);font-size:clamp(36px,4.5vw,56px);color:rgba(232,184,75,.18);font-weight:900;line-height:1;flex-shrink:0;width:52px;text-align:right">01</div>
+        <div style="flex:1;padding:12px 16px;border-radius:12px;border-left:3px solid rgba(232,184,75,.5);background:rgba(232,184,75,.05)">
+          <div style="font-size:clamp(13px,1.5vw,16px);color:var(--cream);font-weight:700;margin-bottom:4px">我最近特别迷三国</div>
+          <div class="sub" style="line-height:1.7">刘备、曹操、诸葛亮……这些人太有意思了！越读越上头，就想让朋友也了解</div>
         </div>
       </div>
-      <div class="a d4" style="display:flex;gap:14px;align-items:flex-start">
-        <div style="width:42px;height:42px;border-radius:12px;background:rgba(192,57,43,.12);border:1px solid rgba(192,57,43,.3);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">😅</div>
-        <div>
-          <div style="font-size:clamp(12px,1.4vw,15px);color:var(--cream);font-weight:600;margin-bottom:4px">但大家都嫌太难记了</div>
-          <div class="sub">人名一堆、战役一堆，光靠看书真的很枯燥，我身边没有同学愿意主动去学这个</div>
+
+      <div class="a d4" style="display:flex;gap:16px;align-items:center">
+        <div style="font-family:var(--ff-t);font-size:clamp(36px,4.5vw,56px);color:rgba(239,83,80,.2);font-weight:900;line-height:1;flex-shrink:0;width:52px;text-align:right">02</div>
+        <div style="flex:1;padding:12px 16px;border-radius:12px;border-left:3px solid rgba(239,83,80,.5);background:rgba(239,83,80,.05)">
+          <div style="font-size:clamp(13px,1.5vw,16px);color:var(--cream);font-weight:700;margin-bottom:4px">但大家都嫌太难记了</div>
+          <div class="sub" style="line-height:1.7">人名一堆、战役一堆，光靠看书枯燥，没有同学愿意主动去学</div>
         </div>
       </div>
-      <div class="a d5" style="display:flex;gap:14px;align-items:flex-start">
-        <div style="width:42px;height:42px;border-radius:12px;background:rgba(76,175,80,.12);border:1px solid rgba(76,175,80,.3);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">💡</div>
-        <div>
-          <div style="font-size:clamp(12px,1.4vw,15px);color:var(--cream);font-weight:600;margin-bottom:4px">那我把它做成游戏不就行了！</div>
-          <div class="sub">玩游戏大家都愿意——答题能得奖励、打仗能用武将，玩着玩着就把三国记住了</div>
+
+      <div class="a d5" style="display:flex;gap:16px;align-items:center">
+        <div style="font-family:var(--ff-t);font-size:clamp(36px,4.5vw,56px);color:rgba(76,175,80,.22);font-weight:900;line-height:1;flex-shrink:0;width:52px;text-align:right">03</div>
+        <div style="flex:1;padding:12px 16px;border-radius:12px;border-left:3px solid rgba(76,175,80,.6);background:rgba(76,175,80,.06)">
+          <div style="font-size:clamp(13px,1.5vw,16px);color:#a8f0a8;font-weight:700;margin-bottom:4px">那我把它做成游戏不就行了！</div>
+          <div class="sub" style="line-height:1.7">答题能得奖励、打仗能用武将，玩着玩着就把三国记住了</div>
         </div>
       </div>
+
     </div>
   </div>
 
-  <div class="half-r" style="z-index:2">
-    <div class="a d3" style="--an:sr;padding:28px 32px;border-radius:20px;background:rgba(232,184,75,.07);border:1px solid rgba(232,184,75,.22);text-align:center;max-width:300px">
-      <div style="font-size:32px;margin-bottom:16px">🏯</div>
-      <div style="font-family:var(--ff-s);font-size:clamp(16px,2vw,24px);color:var(--gold);line-height:1.9;letter-spacing:.05em">
+  <div class="half-r" style="z-index:2;align-items:center;justify-content:center">
+    <div class="a d2" style="--an:sr;position:relative;padding:36px 32px;border-radius:24px;background:linear-gradient(145deg,rgba(232,184,75,.1),rgba(232,184,75,.04));border:1px solid rgba(232,184,75,.25);text-align:center;max-width:320px;width:100%">
+      <!-- 装饰角线 -->
+      <div style="position:absolute;top:14px;left:14px;width:22px;height:22px;border-top:2px solid rgba(232,184,75,.5);border-left:2px solid rgba(232,184,75,.5);border-radius:3px 0 0 0"></div>
+      <div style="position:absolute;top:14px;right:14px;width:22px;height:22px;border-top:2px solid rgba(232,184,75,.5);border-right:2px solid rgba(232,184,75,.5);border-radius:0 3px 0 0"></div>
+      <div style="position:absolute;bottom:14px;left:14px;width:22px;height:22px;border-bottom:2px solid rgba(232,184,75,.5);border-left:2px solid rgba(232,184,75,.5);border-radius:0 0 0 3px"></div>
+      <div style="position:absolute;bottom:14px;right:14px;width:22px;height:22px;border-bottom:2px solid rgba(232,184,75,.5);border-right:2px solid rgba(232,184,75,.5);border-radius:0 0 3px 0"></div>
+
+      <div style="font-family:var(--ff-s);font-size:clamp(18px,2.4vw,28px);color:var(--gold);line-height:2;letter-spacing:.08em;margin-bottom:20px">
         「我想把我喜欢的东西<br>做成游戏<br>和朋友一起玩」
       </div>
-      <div class="rule" style="margin:16px auto"></div>
-      <div style="font-size:clamp(11px,1.2vw,13px);color:var(--dim);line-height:1.8">
-        这就是最开始的想法，很简单<br>
-        <span style="color:var(--muted);font-size:11px">让三国从"要我背"变成"我想玩"</span>
+      <div style="width:40px;height:2px;background:rgba(232,184,75,.5);margin:0 auto 16px"></div>
+      <div style="font-size:clamp(11px,1.2vw,13px);color:var(--dim);line-height:1.9">
+        这就是最开始的想法，很简单
+      </div>
+      <div style="margin-top:8px;display:inline-block;padding:4px 14px;border-radius:20px;background:rgba(232,184,75,.12);border:1px solid rgba(232,184,75,.3);font-size:11px;color:var(--gold)">
+        让三国从「要我背」变成「我想玩」
       </div>
     </div>
   </div>
