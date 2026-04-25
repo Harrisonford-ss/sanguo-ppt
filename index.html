@@ -347,79 +347,67 @@ body{height:100%;font-family:'Noto Sans SC',sans-serif;overflow-x:hidden;backgro
     </div>
   </div>
 
-  <!-- 右侧：7位传说武将大图展示 -->
-  <div style="position:absolute;right:0;top:0;bottom:0;width:56%;z-index:2;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:clamp(16px,2.5vw,36px)">
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr);gap:10px;width:100%;height:88%">
+  <!-- 右侧：7位传说武将一横排 -->
+  <div style="position:absolute;right:0;top:0;bottom:0;width:58%;z-index:2;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:clamp(12px,2vw,28px)">
+    <div style="display:flex;flex-direction:row;gap:8px;width:100%;height:86%">
 
-      <!-- 第一行：4张，中间那张更高作主角 -->
-      <div class="a d2" style="--an:sr;position:relative;border-radius:12px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 20px rgba(232,184,75,.3)">
+      <!-- 7位传说，左右渐入，中间略高 -->
+      <div class="a d2" style="--an:sr;flex:1;position:relative;border-radius:10px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 18px rgba(232,184,75,.25)">
         <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/zhugeliang.webp" style="width:100%;height:100%;object-fit:cover;object-position:top">
-        <div style="position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.85))"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(0,0,0,.88))"></div>
         <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center">
-          <div style="font-size:8px;color:var(--gold);letter-spacing:1px">★★★ 传说</div>
-          <div style="font-family:var(--ff-t);font-size:clamp(11px,1.3vw,16px);color:#fff">诸葛亮</div>
+          <div style="font-size:7px;color:var(--gold)">★★★</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(10px,1.2vw,15px);color:#fff">诸葛亮</div>
         </div>
       </div>
-
-      <div class="a d3" style="--an:sr;position:relative;border-radius:12px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 20px rgba(232,184,75,.3)">
+      <div class="a d3" style="--an:sr;flex:1;position:relative;border-radius:10px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 18px rgba(232,184,75,.25)">
         <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/caocao.webp" style="width:100%;height:100%;object-fit:cover;object-position:top">
-        <div style="position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.85))"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(0,0,0,.88))"></div>
         <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center">
-          <div style="font-size:8px;color:var(--gold);letter-spacing:1px">★★★ 传说</div>
-          <div style="font-family:var(--ff-t);font-size:clamp(11px,1.3vw,16px);color:#fff">曹操</div>
+          <div style="font-size:7px;color:var(--gold)">★★★</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(10px,1.2vw,15px);color:#fff">曹操</div>
         </div>
       </div>
-
-      <div class="a d2" style="--an:sr;position:relative;border-radius:12px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 20px rgba(232,184,75,.3)">
+      <div class="a d2" style="--an:sr;flex:1;position:relative;border-radius:10px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 18px rgba(232,184,75,.25)">
         <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/guanyu.webp" style="width:100%;height:100%;object-fit:cover;object-position:top">
-        <div style="position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.85))"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(0,0,0,.88))"></div>
         <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center">
-          <div style="font-size:8px;color:var(--gold);letter-spacing:1px">★★★ 传说</div>
-          <div style="font-family:var(--ff-t);font-size:clamp(11px,1.3vw,16px);color:#fff">关羽</div>
+          <div style="font-size:7px;color:var(--gold)">★★★</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(10px,1.2vw,15px);color:#fff">关羽</div>
         </div>
       </div>
-
-      <div class="a d3" style="--an:sr;position:relative;border-radius:12px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 20px rgba(232,184,75,.3)">
+      <!-- 中间主角：刘备，略高 -->
+      <div class="a d2" style="--an:sr;flex:1.15;position:relative;border-radius:10px;overflow:hidden;border:2px solid rgba(232,184,75,1);box-shadow:0 0 28px rgba(232,184,75,.5);margin:-12px 0">
         <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/liubei.webp" style="width:100%;height:100%;object-fit:cover;object-position:top">
-        <div style="position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.85))"></div>
-        <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center">
-          <div style="font-size:8px;color:var(--gold);letter-spacing:1px">★★★ 传说</div>
-          <div style="font-family:var(--ff-t);font-size:clamp(11px,1.3vw,16px);color:#fff">刘备</div>
+        <div style="position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(0,0,0,.88))"></div>
+        <div style="position:absolute;bottom:10px;left:0;right:0;text-align:center">
+          <div style="font-size:7px;color:var(--gold)">★★★</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(10px,1.2vw,15px);color:#fff">刘备</div>
         </div>
       </div>
-
-      <!-- 第二行：3张居中 + 空位 -->
-      <div class="a d4" style="--an:sr;position:relative;border-radius:12px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 20px rgba(232,184,75,.3)">
+      <div class="a d3" style="--an:sr;flex:1;position:relative;border-radius:10px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 18px rgba(232,184,75,.25)">
         <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/zhaoyun.webp" style="width:100%;height:100%;object-fit:cover;object-position:top">
-        <div style="position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.85))"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(0,0,0,.88))"></div>
         <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center">
-          <div style="font-size:8px;color:var(--gold);letter-spacing:1px">★★★ 传说</div>
-          <div style="font-family:var(--ff-t);font-size:clamp(11px,1.3vw,16px);color:#fff">赵云</div>
+          <div style="font-size:7px;color:var(--gold)">★★★</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(10px,1.2vw,15px);color:#fff">赵云</div>
         </div>
       </div>
-
-      <div class="a d5" style="--an:sr;position:relative;border-radius:12px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 20px rgba(232,184,75,.3)">
+      <div class="a d4" style="--an:sr;flex:1;position:relative;border-radius:10px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 18px rgba(232,184,75,.25)">
         <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/lvbu.webp" style="width:100%;height:100%;object-fit:cover;object-position:top">
-        <div style="position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.85))"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(0,0,0,.88))"></div>
         <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center">
-          <div style="font-size:8px;color:var(--gold);letter-spacing:1px">★★★ 传说</div>
-          <div style="font-family:var(--ff-t);font-size:clamp(11px,1.3vw,16px);color:#fff">吕布</div>
+          <div style="font-size:7px;color:var(--gold)">★★★</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(10px,1.2vw,15px);color:#fff">吕布</div>
         </div>
       </div>
-
-      <div class="a d4" style="--an:sr;position:relative;border-radius:12px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 20px rgba(232,184,75,.3)">
+      <div class="a d3" style="--an:sr;flex:1;position:relative;border-radius:10px;overflow:hidden;border:2px solid rgba(232,184,75,.9);box-shadow:0 0 18px rgba(232,184,75,.25)">
         <img src="https://cdn.jsdelivr.net/gh/Harrisonford-ss/sanguo-game@main/images/cardart/simayi.webp" style="width:100%;height:100%;object-fit:cover;object-position:top">
-        <div style="position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.85))"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(0,0,0,.88))"></div>
         <div style="position:absolute;bottom:8px;left:0;right:0;text-align:center">
-          <div style="font-size:8px;color:var(--gold);letter-spacing:1px">★★★ 传说</div>
-          <div style="font-family:var(--ff-t);font-size:clamp(11px,1.3vw,16px);color:#fff">司马懿</div>
+          <div style="font-size:7px;color:var(--gold)">★★★</div>
+          <div style="font-family:var(--ff-t);font-size:clamp(10px,1.2vw,15px);color:#fff">司马懿</div>
         </div>
-      </div>
-
-      <!-- 第7格：标注总数 -->
-      <div class="a d5" style="--an:sr;border-radius:12px;border:2px dashed rgba(232,184,75,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:rgba(232,184,75,.05)">
-        <div style="font-family:var(--ff-t);font-size:clamp(22px,3vw,40px);color:var(--gold)">36</div>
-        <div style="font-size:clamp(9px,1vw,12px);color:var(--muted);text-align:center;line-height:1.6">位英雄<br>传说 · 稀有 · 普通</div>
       </div>
 
     </div>
